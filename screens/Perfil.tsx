@@ -5,8 +5,8 @@ import { useQuery } from '@apollo/react-hooks';
 import { Avatar, Box, Text, VStack } from 'native-base';
 import { ScrollView, StyleSheet } from 'react-native';
 
-import EstadisticaCard from '../components/EstadisticaCard.js';
-import LevelCard from '../components/LevelCard.js';
+import EstadisticaCard from '../components/EstadisticaCard';
+import LevelCard from '../components/LevelCard';
 import { queries } from '../graphql';
 
 const player = 'marco@example.com';
