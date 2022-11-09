@@ -1,11 +1,12 @@
 import React from 'react';
 
-import { StyleSheet, ScrollView } from 'react-native';
 import { useQuery } from '@apollo/react-hooks';
-
-import { queries } from '../graphql';
 import { Container } from 'native-base';
+import { ScrollView, StyleSheet } from 'react-native';
+
 import RankCard from '../components/RankCard';
+import { queries } from '../graphql';
+
 const Board = () => {
   const { data: { stats_scorez } = {} } = useQuery(queries.ShowRank);
 

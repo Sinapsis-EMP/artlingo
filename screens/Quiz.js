@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from 'react';
-import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+import React, { useEffect, useState } from 'react';
 
-import { queries, mutations } from '../graphql';
+import { Ionicons } from '@expo/vector-icons';
 
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  Dimensions,
-  StatusBar,
-  Image,
-  TouchableOpacity,
-  Modal,
-  Animated,
-  ScrollView,
-  Pressable,
-  Alert,
-} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import ConfettiCannon from 'react-native-confetti-cannon';
 import { Audio } from 'expo-av';
+import {
+  Alert,
+  Animated,
+  Dimensions,
+  Image,
+  Modal,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import ConfettiCannon from 'react-native-confetti-cannon';
+import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
+
+import { mutations, queries } from '../graphql';
 import { ShowRank } from '../graphql/queries';
 
 const { width, height } = Dimensions.get('window');

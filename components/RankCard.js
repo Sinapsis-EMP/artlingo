@@ -1,20 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import React, { useEffect, useState } from 'react';
 
-import {
-  Box,
-  Heading,
-  AspectRatio,
-  Image,
-  Text,
-  Center,
-  HStack,
-  Stack,
-  NativeBaseProvider,
-  Avatar,
-  VStack,
-  ScrollView,
-} from 'native-base';
+import { Box, HStack, Image, Text, VStack } from 'native-base';
 
 const RankCard = ({ nombre, score, pre_rank }) => {
   const [foto, SetFoto] = useState();

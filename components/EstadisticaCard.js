@@ -1,22 +1,23 @@
 import React, { useState } from 'react';
 
 import {
-  Box,
-  Heading,
   AspectRatio,
-  Image,
-  Text,
-  Center,
-  HStack,
-  Stack,
-  NativeBaseProvider,
   Avatar,
-  VStack,
-  Flex,
+  Box,
+  Center,
   Container,
-  Spacer,
+  Flex,
+  HStack,
+  Heading,
+  Image,
+  NativeBaseProvider,
   Progress,
+  Spacer,
+  Stack,
+  Text,
+  VStack,
 } from 'native-base';
+
 const EstadisticaCard = ({ correctas, jugadas }) => {
   var porcentaje = Math.round((correctas / jugadas) * 100);
 

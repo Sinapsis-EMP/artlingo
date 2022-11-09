@@ -1,20 +1,21 @@
-import { StyleSheet, StatusBar } from 'react-native';
-import { NativeBaseProvider } from 'native-base';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { ApolloProvider } from '@apollo/react-hooks';
-import { client } from './graphql';
-import Inicio from './screens/Inicio.js';
-import Perfil from './screens/Perfil.js';
-import Logros from './screens/Logros.js';
-import Board from './screens/Board.js';
-import Quiz from './screens/Quiz.js';
-import Brain from './assets/icons/brain.svg';
-import Podium from './assets/icons/podium.svg';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { NativeBaseProvider } from 'native-base';
+import { StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+
 import Bell from './assets/icons/bell.svg';
-import Persona from './assets/icons/persona.svg';
+import Brain from './assets/icons/brain.svg';
 import Casa from './assets/icons/casa.svg';
+import Persona from './assets/icons/persona.svg';
+import Podium from './assets/icons/podium.svg';
+import { client } from './graphql';
+import Board from './screens/Board.js';
+import Inicio from './screens/Inicio.js';
+import Logros from './screens/Logros.js';
+import Perfil from './screens/Perfil.js';
+import Quiz from './screens/Quiz.js';
 
 const Tab = createBottomTabNavigator();
 

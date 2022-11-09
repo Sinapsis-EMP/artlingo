@@ -6,7 +6,9 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "prepare": "husky install",
+    "test": "echo \"Error: no test yet\""
   },
   "dependencies": {
     "@apollo/client": "^3.7.0",
@@ -46,6 +48,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@trivago/prettier-plugin-sort-imports": "^3.4.0",
+    "husky": "^8.0.2",
     "prettier": "^2.7.1",
     "typescript": "^4.6.3"
   },

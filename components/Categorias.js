@@ -1,19 +1,8 @@
 import React from 'react';
-import {
-  Box,
-  Heading,
-  Avatar,
-  AspectRatio,
-  Image,
-  Text,
-  Center,
-  HStack,
-  Stack,
-  NativeBaseProvider,
-  VStack,
-  Container,
-} from 'native-base';
+
 import { useFonts } from 'expo-font';
+import { Avatar, Box, Text, VStack } from 'native-base';
+
 const Categorias = ({ picture, nombre }) => {
   const [fontsLoaded] = useFonts({
     'Gotika-Regular': require('../assets/fonts/Gotika-Regular.otf'),

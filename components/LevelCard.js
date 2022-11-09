@@ -1,24 +1,18 @@
 import React from 'react';
+
 import { Ionicons } from '@expo/vector-icons';
 
 import {
   Box,
-  Heading,
-  AspectRatio,
-  Image,
-  Text,
   Center,
-  HStack,
-  Stack,
-  NativeBaseProvider,
-  Avatar,
-  VStack,
-  Flex,
   Container,
-  Spacer,
-  Progress,
   Divider,
+  Flex,
+  HStack,
+  Text,
+  VStack,
 } from 'native-base';
+
 const LevelCard = ({
   division,
   puntuacion,

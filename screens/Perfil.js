@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
-
-import { Box, Text, Avatar, VStack } from 'native-base';
-import { useQuery } from '@apollo/react-hooks';
 import { useEffect } from 'react';
 
-import { queries } from '../graphql';
+import { useQuery } from '@apollo/react-hooks';
+import { Avatar, Box, Text, VStack } from 'native-base';
+import { ScrollView, StyleSheet } from 'react-native';
+
 import EstadisticaCard from '../components/EstadisticaCard.js';
 import LevelCard from '../components/LevelCard.js';
+import { queries } from '../graphql';
 
 const player = 'marco@example.com';
 

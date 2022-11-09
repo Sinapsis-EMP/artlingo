@@ -1,20 +1,21 @@
 import React from 'react';
+import { useState } from 'react';
 
-import { StyleSheet, ScrollView } from 'react-native';
-import Categorias from '../components/Categorias';
 import {
   Box,
+  Button,
   Center,
   HStack,
-  VStack,
-  Pressable,
   Modal,
-  Text,
+  Pressable,
   Select,
-  Button,
+  Text,
+  VStack,
 } from 'native-base';
+import { ScrollView, StyleSheet } from 'react-native';
+
 import pill from '../assets/pill.png';
-import { useState } from 'react';
+import Categorias from '../components/Categorias';
 
 const Inicio = ({ navigation }) => {
   const [showModal, setShowModal] = useState(false);
