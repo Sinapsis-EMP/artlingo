@@ -89,7 +89,7 @@ export default function App() {
       <ApolloProvider client={client}>
         <NavigationContainer>
           <NativeBaseProvider>
-            <HomeScreen></HomeScreen>
+            <HomeScreen />
           </NativeBaseProvider>
         </NavigationContainer>
       </ApolloProvider>

@@ -20,7 +20,6 @@ import Categorias from '../components/Categorias';
 const Inicio = ({ navigation }) => {
   const [numPreguntas, setNumPreguntas] = useState('');
   const [tema, setTema] = useState('');
-
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
 
