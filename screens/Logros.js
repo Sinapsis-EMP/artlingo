@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { Box} from "native-base";
+import { Box } from 'native-base';
 const Logros = () => {
-
-  return ( <Box></Box>
-  )}
+  return <Box></Box>;
+};
 export default Logros;
