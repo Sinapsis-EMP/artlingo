@@ -7,18 +7,19 @@ import {queries } from '../graphql';
 import { Container} from "native-base";
 import RankCard from '../components/RankCard';
 const Board=()=>  {
-  const {    data: { users } = {}  }= useQuery(queries.ShowUsers);
+
+  const {    data: { stats_scorez} = {}  }= useQuery(queries.ShowRank);
 
     return (
 
-  <ScrollView contentContainerStyle={styles.container}>
-          <Container maxWidth="full" style={{backgroundColor:"white", paddingTop:20, borderTopLeftRadius:30 ,borderTopRightRadius:30,marginTop:20}}>
+<ScrollView style={styles.container}>
+          <Container maxWidth="full"  style={{backgroundColor:"white", paddingTop:20, borderTopLeftRadius:30 ,borderTopRightRadius:30,marginTop:20}}>
 
-    {users?.map((user,index) => (
+    {stats_scorez?.map((stats_scorez,index) => (
 
-                 <RankCard key={index} nombre={user.name}  score={user.puntitos.puntos} division={user.puntitos.division}  ></RankCard>
-                
-                
+                 <RankCard key={index} nombre={stats_scorez.jugador}  score={stats_scorez.puntuacion} pre_rank={stats_scorez.pre_rank}   ></RankCard>
+
+            
       ))}
          
 

@@ -2,16 +2,32 @@ import React from 'react';
 
 import { StyleSheet, ScrollView } from 'react-native';
 import Categorias from '../components/Categorias';
-import { Box,Center,HStack,VStack,Pressable} from "native-base";
+import { Box,Center,HStack,VStack,Pressable,Modal,Text,Select,Button} from "native-base";
 import pill from '../assets/pill.png';
-import QuizModal from '../components/QuizModal';
 import { useState } from 'react';
 
-const Inicio=()=>  {
-  const [showQModal, setShowQModal] = useState(false);
-  const [tema, setTema] = useState("");
+const Inicio=({navigation })=>  {
 
-   const toggleChecked = () => setShowQModal((value) => !value);
+
+  const [showModal, setShowModal] = useState(false);
+  const [loadingk, setLoadingk] = useState(false);
+
+  const [Numpreguntas, setNumpreguntas] = useState();
+
+  const [tema, setTema] = useState();
+
+  console.log("Modal esta en ..." +  showModal);
+
+  async function f() {
+
+    let promise = new Promise((resolve, reject) => {
+      setTimeout(() => resolve("¡Hecho!"), 1000)
+    });
+  
+    let result = await promise; 
+  
+  console.log( "result" + result);
+  }
   
     return (
 
@@ -19,25 +35,75 @@ const Inicio=()=>  {
     <Center>
       <VStack space ={5}>
     <HStack space={10} alignItems="center">
-    <Pressable onPress={() => { toggleChecked(), setTema("Farmacología")}  }>
+    <Pressable onPress={() => { setShowModal(true), setTema("Farmacología")}  }>
 
 <Categorias   nombre= {"Farmacología"} picture={pill}></Categorias>
 </Pressable>
-<Pressable onPress={() => { toggleChecked(), setTema("Anatomía")}  }>
 
 <Categorias   nombre= {"Anatomía"} picture={pill}></Categorias>
-</Pressable>
     </HStack>
     <HStack space={10} alignItems="center">
 <Categorias nombre= {"Farmacología"} picture={pill}></Categorias>
 <Categorias nombre= {"Farmacología"} picture={pill}></Categorias>
 
     </HStack>
+    
     </VStack>
     </Center>
-    {showQModal &&(   <QuizModal tema={tema}  />
    
-)}
+<Modal isOpen={showModal} onClose={() => setShowModal(false)}>
+  <Modal.Content maxWidth="400px">
+    <Modal.CloseButton />
+    <Modal.Header>Quiz de {tema}</Modal.Header>
+    <Modal.Body>
+    <Box maxW="300">
+    <Text fontWeight="medium">Selecciona el número de preguntas</Text>
+
+  <Select selectedValue={Numpreguntas} minWidth="200" accessibilityLabel="Número de Preguntas" placeholder="Número de Preguntas" _selectedItem={{
+  bg: "teal.600",
+
+}} mt={1} onValueChange={itemValue => setNumpreguntas(itemValue)}>
+    <Select.Item label="10" value="10" />
+    <Select.Item label="20" value="20" />
+    <Select.Item label="30" value="30" />
+    <Select.Item label="40" value="40" />
+    <Select.Item label="50" value="50" />
+  </Select>
+</Box>
+
+     
+    </Modal.Body>
+    <Modal.Footer>
+    
+        <Button  isLoading={loadingk} disabled={Numpreguntas === undefined}
+                            onPress={async () => {
+                                setLoadingk(true);
+                                await
+                              f()
+
+                                        .then(() => {
+                                            
+
+                                            navigation.navigate('Quiz',{limit2: Numpreguntas, })   
+                                          setNumpreguntas()       
+                                          setShowModal(false)
+                                        })
+                                        .catch((err) => {
+                                            console.log('Ocurrió un error!', err);
+                                        })
+                                        .finally(() => {
+                                            setLoadingk(false);
+                                        });
+                            }}
+      borderRadius={10} width={"100%"} > 
+                 Iniciar Quiz
+        </Button>
+     
+
+    </Modal.Footer>
+  </Modal.Content>
+</Modal>
+ 
     </ScrollView>
     )
  

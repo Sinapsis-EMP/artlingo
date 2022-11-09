@@ -3,27 +3,24 @@ import { NativeBaseProvider } from "native-base";
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Ionicons } from '@expo/vector-icons';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { client } from './graphql';
-import { useFonts } from 'expo-font';
 import Inicio from './screens/Inicio.js';
 import Perfil from './screens/Perfil.js';
 import Logros from './screens/Logros.js';
 import Board from './screens/Board.js';
 import Quiz from './screens/Quiz.js';
+import Brain from './assets/icons/brain.svg';
+import Podium from './assets/icons/podium.svg';
+import Bell from './assets/icons/bell.svg';
+import Persona from './assets/icons/persona.svg';
+import Casa from './assets/icons/casa.svg';
 
 const Tab = createBottomTabNavigator();
 
 function HomeScreen() {
  
-  // const [fontsLoaded] = useFonts({
-  //   'Gotika-Regular': require('./assets/fonts/Gotika-Regular.otf'),
-  // });
 
-  // if (!fontsLoaded) {
-  //   return null;
-  // }
   
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: "#F1F1F1" }]}>
@@ -31,7 +28,7 @@ function HomeScreen() {
 
     <Tab.Navigator
 
-    screenOptions={({ route }) => ({
+screenOptions={({ route }) => ({
    
 
       
@@ -45,67 +42,26 @@ function HomeScreen() {
       headerTitleAlign:"center",
   
       tabBarStyle:{borderRadius:10, backgroundColor:"#7493BA" ,height:70 },
-      tabBarIcon: ({ focused, color, size }) => {
-     let iconName;
-    
-     if (route.name === 'Inicio') {
-        iconName = focused
-        ? 'ios-home'
-        : 'ios-home-outline';
-        size=40
-        color=focused ? 'white' : "white"
+      tabBarIcon: () => {
+        if(route.name === "Inicio"){return <Casa  width={120} height={40}/>
+    }
+    else if(route.name === "Perfil"){return<Persona width={120} height={40}/>}
+     else if(route.name === "Quiz"){return<Brain width={120} height={40}/>}
+
+    else if(route.name === "Logros"){return<Bell width={120} height={40}/>}
+    else if(route.name === "Board"){return<Podium width={120} height={40}/>}
+
+  }, 
         
-      } else if (route.name === 'Perfil') {
-        iconName = focused
-        ? 'ios-person'
-        : 'ios-person-outline';
-        size=40
-        color=focused ? 'white' : "white"
-
-      
-
-      }
-      else if (route.name === 'Quiz') {
-        iconName = focused
-        ? 'ios-school'
-        : 'ios-school';
-        size=60
-        color=focused ? '#e91e63' : "#e91e63"
-
-      
-
-      } else if (route.name === 'Logros') {
-        iconName = focused
-        ? 'ios-notifications'
-        : 'ios-notifications-outline';
-        size=40
-        color=focused ? 'white' : "white"
-
-       
-
-      }else if (route.name === 'Board') {
-        iconName = focused
-        ? 'ios-podium'
-        : 'ios-podium-outline';
-        size=40
-        color=focused ? 'white' : "white"
-
-      }
-return <Ionicons name={iconName} size={size} color={color}/>
-
-
-}, 
-        
-      })}
-      
-     
+})}
     >
         <Tab.Screen name="Inicio" component={Inicio} />
         <Tab.Screen name="Perfil" component={Perfil} />
-        <Tab.Screen  options={{
+      <Tab.Screen  options={{
             tabBarStyle: { display: "none" },
             headerShown:false,
-          }} name="Quiz" component={Quiz} />
+            
+          }}  name="Quiz" component={Quiz} /> 
         <Tab.Screen name="Logros" component={Logros} />
         <Tab.Screen name="Board" component={Board} />
     </Tab.Navigator>
