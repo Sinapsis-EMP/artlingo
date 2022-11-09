@@ -5,11 +5,11 @@ import { NativeBaseProvider } from 'native-base';
 import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import Bell from './assets/icons/bell.svg';
-import Brain from './assets/icons/brain.svg';
-import Casa from './assets/icons/casa.svg';
-import Persona from './assets/icons/persona.svg';
-import Podium from './assets/icons/podium.svg';
+import Bell from './assets/icons/Bell.tsx';
+import Brain from './assets/icons/Brain.tsx';
+import Casa from './assets/icons/Casa.tsx';
+import Persona from './assets/icons/Persona.tsx';
+import Podium from './assets/icons/Podium.tsx';
 import { client } from './graphql';
 import Board from './screens/Board.js';
 import Inicio from './screens/Inicio.js';
