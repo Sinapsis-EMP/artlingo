@@ -5,17 +5,17 @@ import { NativeBaseProvider } from 'native-base';
 import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
-import Bell from './assets/icons/Bell.tsx';
-import Brain from './assets/icons/Brain.tsx';
-import Casa from './assets/icons/Casa.tsx';
-import Persona from './assets/icons/Persona.tsx';
-import Podium from './assets/icons/Podium.tsx';
+import Bell from './assets/icons/Bell';
+import Brain from './assets/icons/Brain';
+import Casa from './assets/icons/Casa';
+import Persona from './assets/icons/Persona';
+import Podium from './assets/icons/Podium';
 import { client } from './graphql';
-import Board from './screens/Board.js';
-import Inicio from './screens/Inicio.js';
-import Logros from './screens/Logros.js';
-import Perfil from './screens/Perfil.js';
-import Quiz from './screens/Quiz.js';
+import Board from './screens/Board';
+import Inicio from './screens/Inicio';
+import Logros from './screens/Logros';
+import Perfil from './screens/Perfil';
+import Quiz from './screens/Quiz';
 
 const Tab = createBottomTabNavigator();
 

@@ -1,19 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import {
-  AspectRatio,
-  Avatar,
   Box,
   Center,
   Container,
   Flex,
-  HStack,
-  Heading,
-  Image,
-  NativeBaseProvider,
   Progress,
   Spacer,
-  Stack,
   Text,
   VStack,
 } from 'native-base';

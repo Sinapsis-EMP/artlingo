@@ -15,13 +15,7 @@ const Categorias = ({ picture, nombre }) => {
   return (
     <Box marginTop={50}>
       <VStack space={4}>
-        <Avatar
-          bg="#F1F1F1"
-          size="2xl"
-          alignSelf="center"
-          source={picture}
-        ></Avatar>
-
+        <Avatar bg="#F1F1F1" size="2xl" alignSelf="center" source={picture} />
         <Box alignSelf="center">
           <Text color={'#BE8ABC'} fontFamily="Gotika-Regular" fontSize={22}>
             {nombre}

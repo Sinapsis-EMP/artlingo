@@ -773,7 +773,8 @@ const Quiz = ({ route }) => {
                       .then(() => {
                         restartQuiz();
                         setShowScoreModal(false);
-                        navigation.navigate('Inicio');
+
+                        navigation.navigate('Inicio', {});
                       })
                       .catch((err) => {
                         console.log('Ocurrió un error!', err);

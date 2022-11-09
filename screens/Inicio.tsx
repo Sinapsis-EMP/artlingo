@@ -18,24 +18,11 @@ import pill from '../assets/pill.png';
 import Categorias from '../components/Categorias';
 
 const Inicio = ({ navigation }) => {
+  const [numPreguntas, setNumPreguntas] = useState('');
+  const [tema, setTema] = useState('');
+
+  const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [loadingk, setLoadingk] = useState(false);
-
-  const [Numpreguntas, setNumpreguntas] = useState();
-
-  const [tema, setTema] = useState();
-
-  console.log('Modal esta en ...' + showModal);
-
-  async function f() {
-    let promise = new Promise((resolve, reject) => {
-      setTimeout(() => resolve('¡Hecho!'), 1000);
-    });
-
-    let result = await promise;
-
-    console.log('result' + result);
-  }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -68,41 +55,37 @@ const Inicio = ({ navigation }) => {
               <Text fontWeight="medium">Selecciona el número de preguntas</Text>
 
               <Select
-                selectedValue={Numpreguntas}
                 minWidth="200"
+                mt={1}
+                selectedValue={numPreguntas}
                 accessibilityLabel="Número de Preguntas"
                 placeholder="Número de Preguntas"
-                _selectedItem={{
-                  bg: 'teal.600',
-                }}
-                mt={1}
-                onValueChange={(itemValue) => setNumpreguntas(itemValue)}
+                _selectedItem={{ bg: 'teal.600' }}
+                onValueChange={setNumPreguntas}
               >
-                <Select.Item label="10" value="10" />
-                <Select.Item label="20" value="20" />
-                <Select.Item label="30" value="30" />
-                <Select.Item label="40" value="40" />
-                <Select.Item label="50" value="50" />
+                {['10', '20', '30', '40', '50'].map((num) => (
+                  <Select.Item key={num} label={num} value={num} />
+                ))}
               </Select>
             </Box>
           </Modal.Body>
           <Modal.Footer>
             <Button
-              isLoading={loadingk}
-              disabled={Numpreguntas === undefined}
+              isLoading={loading}
+              disabled={!numPreguntas}
               onPress={async () => {
-                setLoadingk(true);
+                setLoading(true);
                 await f()
                   .then(() => {
-                    navigation.navigate('Quiz', { limit2: Numpreguntas });
-                    setNumpreguntas();
+                    navigation.navigate('Quiz', { limit2: numPreguntas });
+                    setNumPreguntas(null);
                     setShowModal(false);
                   })
                   .catch((err) => {
                     console.log('Ocurrió un error!', err);
                   })
                   .finally(() => {
-                    setLoadingk(false);
+                    setLoading(false);
                   });
               }}
               borderRadius={10}

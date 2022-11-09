@@ -28,7 +28,7 @@ const Board = () => {
             nombre={stats_scorez.jugador}
             score={stats_scorez.puntuacion}
             pre_rank={stats_scorez.pre_rank}
-          ></RankCard>
+          />
         ))}
       </Container>
     </ScrollView>
