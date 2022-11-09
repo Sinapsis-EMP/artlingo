@@ -1,3 +1,7 @@
 {
-  "recommendations": ["esbenp.prettier-vscode", "bycedric.vscode-expo"]
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "bycedric.vscode-expo",
+    "msjsdiag.vscode-react-native"
+  ]
 }
