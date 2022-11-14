@@ -44,12 +44,11 @@ export const SIZES = {
   height: height,
 };
 const player = 'marco@example.com';
-const Quiz = ({ route }) => {
-  const navigation = useNavigation();
-  const limit = parseInt(route.params?.limit2);
+const Quiz = ({ route, navigation }) => {
+  const limit = route.params?.limit2;
 
   const {
-    data: { preguntas } = {},
+    data: { preguntas = [] } = {},
     loading: queryLoading,
     error,
   } = useQuery(queries.ShowQuestions, {
@@ -61,13 +60,13 @@ const Quiz = ({ route }) => {
   //console.log(typeof preguntas);
   const [navigating, setNavigating] = useState(false);
   const [myArray2, setmyArray2] = useState([]);
-  const [correctas, setCorrectas] = useState();
-  const [presicion, setPresicion] = useState();
-  const [velocidad, setVelocidad] = useState();
-  const [partidas, setPartidas] = useState();
-  const [jugadas, setJugadas] = useState();
-  const [puntuacion, setPuntuacion] = useState();
-  const [sound, setSound] = useState();
+  const [correctas, setCorrectas] = useState(0);
+  const [presicion, setPresicion] = useState(0);
+  const [velocidad, setVelocidad] = useState(0);
+  const [partidas, setPartidas] = useState(0);
+  const [jugadas, setJugadas] = useState(0);
+  const [puntuacion, setPuntuacion] = useState(0);
+  const [sound, setSound] = useState<Audio.Sound>(null);
   const [score, setScore] = useState(0);
   const [mensaje, setMensaje] = useState('');
   const [correctaz, setCorrectaz] = useState(Number);
@@ -80,13 +79,8 @@ const Quiz = ({ route }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [key, setKey] = useState(0);
   const [rem, setRem] = useState(0);
+  const [progress, setProgress] = useState(new Animated.Value(0));
 
-  if (queryLoading) {
-    return <Text>'Loading...'</Text>;
-  }
-  if (error) {
-    return <Text>`Error! ${error.message}`</Text>;
-  }
   function getAvg(myArray2) {
     const total = myArray2.reduce((acc, c) => acc + c, 0);
     return total / myArray2.length;
@@ -109,6 +103,7 @@ const Quiz = ({ route }) => {
       setPartidas(scorez[0].partidas);
     }
   }, [scorez]);
+
   const [UpdateScorez] = useMutation(mutations.UpdateScorez, {
     variables: {
       jugador: player,
@@ -167,31 +162,29 @@ const Quiz = ({ route }) => {
   useEffect(() => {
     return sound
       ? () => {
-          console.log('Unloading Sound');
           sound.unloadAsync();
         }
       : undefined;
   }, [sound]);
 
   const aviso = (score) => {
-    let por = (score * 100) / preguntas.length;
+    const por = (score * 100) / preguntas.length;
+
+    const avisos = ['Excelente', 90, 'Muy bien', 70];
+
     console.log('pooor' + JSON.stringify(por));
     if (por >= 90) {
       setMensaje('Excelente');
-      setCorrectaz(por);
     } else if (por >= 70 && por < 90) {
       setMensaje('Buen Trabajo');
-      setCorrectaz(por);
     } else if (por >= 50 && por < 70) {
       setMensaje('Puedes Mejorar');
-      setCorrectaz(por);
     } else if (por >= 30 && por < 50) {
       setMensaje('Necesita más Trabajo');
-      setCorrectaz(por);
     } else if (por < 30) {
       setMensaje('Suerte la Próxima');
-      setCorrectaz(por);
     }
+    setCorrectaz(por);
   };
 
   const validateAnswer = (selectedOption) => {
@@ -232,9 +225,10 @@ const Quiz = ({ route }) => {
       useNativeDriver: false,
     }).start();
   };
+
   const restartQuiz = () => {
     setShowScoreModal(false);
-    setIsPlaying(false);
+    setIsPlaying(!isPlaying);
     setKey(0);
     setRem(0);
     setCurrentQuestionIndex(0);
@@ -378,7 +372,8 @@ const Quiz = ({ route }) => {
         >
           <TouchableOpacity
             onPress={() => {
-              restartQuiz(), navigation.navigate('Inicio');
+              restartQuiz();
+              navigation.navigate('Inicio');
             }}
             style={{
               marginTop: 20,
@@ -448,7 +443,6 @@ const Quiz = ({ route }) => {
     );
   };
 
-  const [progress, setProgress] = useState(new Animated.Value(0));
   const progressAnim = progress.interpolate({
     inputRange: [0, preguntas.length],
     outputRange: ['0%', '100%'],
@@ -489,13 +483,14 @@ const Quiz = ({ route }) => {
           }}
         >
           <Pressable
-            onPress={() =>
+            onPress={() => {
+              console.info('ALERT');
               Alert.alert(
                 'El mecanismo de acción del omeprazol es..',
                 'Este grupo de compuestos actúa selectivamente sobre el eslabón final del proceso de secreción ácida gástrica, la ATPasa - H+/K+ o bomba de protones, por lo que también se les denomina inhibidores de la bomba de protones.',
                 [{ text: 'OK', onPress: () => console.log('OK Pressed') }]
-              )
-            }
+              );
+            }}
           >
             <Ionicons
               name="information-circle-outline"
@@ -526,6 +521,13 @@ const Quiz = ({ route }) => {
       );
     }
   };
+
+  if (queryLoading) {
+    return <Text>'Loading...'</Text>;
+  }
+  if (error) {
+    return <Text>`Error! ${error.message}`</Text>;
+  }
 
   return (
     <SafeAreaView
@@ -763,18 +765,16 @@ const Quiz = ({ route }) => {
                 </View>
 
                 <TouchableOpacity
-                  isLoading={navigating}
                   onPress={async () => {
                     setNavigating(true);
                     await UpdateScorez()
                       .then(() => {
                         restartQuiz();
                         setShowScoreModal(false);
-
                         navigation.navigate('Inicio', {});
                       })
                       .catch((err) => {
-                        console.log('Ocurrió un error!', err);
+                        console.error('Ocurrió un error!', err);
                       })
                       .finally(() => {
                         setNavigating(false);
