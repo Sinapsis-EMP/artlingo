@@ -46,21 +46,20 @@ export const SIZES = {
 const player = 'marco@example.com';
 const Quiz = ({ route }) => {
   const navigation = useNavigation();
-
   const limit = parseInt(route.params?.limit2);
 
   const {
     data: { preguntas } = {},
-    loading,
+    loading: queryLoading,
     error,
   } = useQuery(queries.ShowQuestions, {
     variables: {
-      limit: limit,
+      limit,
     },
   });
 
   //console.log(typeof preguntas);
-  const [loadingk, setLoadingk] = useState(false);
+  const [navigating, setNavigating] = useState(false);
   const [myArray2, setmyArray2] = useState([]);
   const [correctas, setCorrectas] = useState();
   const [presicion, setPresicion] = useState();
@@ -81,10 +80,8 @@ const Quiz = ({ route }) => {
   const [isPlaying, setIsPlaying] = useState(true);
   const [key, setKey] = useState(0);
   const [rem, setRem] = useState(0);
-  console.log(myArray2);
-  console.log('rem actual..' + rem);
-  console.log('corriendo' + isPlaying);
-  if (loading) {
+
+  if (queryLoading) {
     return <Text>'Loading...'</Text>;
   }
   if (error) {
@@ -766,9 +763,9 @@ const Quiz = ({ route }) => {
                 </View>
 
                 <TouchableOpacity
-                  isLoading={loadingk}
+                  isLoading={navigating}
                   onPress={async () => {
-                    setLoadingk(true);
+                    setNavigating(true);
                     await UpdateScorez()
                       .then(() => {
                         restartQuiz();
@@ -780,7 +777,7 @@ const Quiz = ({ route }) => {
                         console.log('Ocurrió un error!', err);
                       })
                       .finally(() => {
-                        setLoadingk(false);
+                        setNavigating(false);
                       });
                   }}
                   style={{

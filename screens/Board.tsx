@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useQuery } from '@apollo/react-hooks';
+import Constants from 'expo-constants';
 import { Container } from 'native-base';
 import { ScrollView, StyleSheet } from 'react-native';
 
