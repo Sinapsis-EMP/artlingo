@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
 import { useMutation, useQuery } from '@apollo/react-hooks';
-import { useNavigation } from '@react-navigation/native';
 import { Audio } from 'expo-av';
 import {
   Alert,
@@ -87,7 +86,7 @@ const Quiz = ({ route, navigation }) => {
   }
 
   const average = getAvg(myArray2);
-  const { data: { scorez } = {} } = useQuery(queries.ShowScorez, {
+  const { data: { scorez = 0 } = {} } = useQuery(queries.ShowScorez, {
     variables: {
       jugador: player,
     },
@@ -424,7 +423,6 @@ const Quiz = ({ route, navigation }) => {
         }}
       >
         <CountdownCircleTimer
-          key={key}
           size={100}
           isPlaying={isPlaying}
           duration={30}
@@ -493,11 +491,9 @@ const Quiz = ({ route, navigation }) => {
             }}
           >
             <Ionicons
+              size={40}
               name="information-circle-outline"
-              style={{
-                color: 'green',
-                fontSize: 40,
-              }}
+              color="green"
             />
           </Pressable>
         </View>
