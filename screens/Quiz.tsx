@@ -1,19 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { Ionicons } from '@expo/vector-icons';
 
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Audio } from 'expo-av';
+import { Flex, HStack, Spacer } from 'native-base';
 import {
   Alert,
   Animated,
   Dimensions,
-  Image,
+  ImageBackground,
   Modal,
   Pressable,
-  SafeAreaView,
   ScrollView,
-  StatusBar,
   Text,
   TouchableOpacity,
   View,
@@ -21,8 +20,9 @@ import {
 import ConfettiCannon from 'react-native-confetti-cannon';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
+import Animacion from '../components/Animacion';
 import { mutations, queries } from '../graphql';
-import { ShowRank } from '../graphql/queries';
+import { ShowRanking } from '../graphql/queries';
 
 const { width, height } = Dimensions.get('window');
 export const COLORS = {
@@ -43,8 +43,14 @@ export const SIZES = {
   height: height,
 };
 const player = 'marco@example.com';
+
 const Quiz = ({ route, navigation }) => {
   const limit = route.params?.limit2;
+
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [key, setKey] = useState(null);
+  const [rem, setRem] = useState(null);
+  console.log('isplay1' + isPlaying);
 
   const {
     data: { preguntas = [] } = {},
@@ -55,16 +61,81 @@ const Quiz = ({ route, navigation }) => {
       limit,
     },
   });
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      setIsPlaying(true);
+    });
 
-  //console.log(typeof preguntas);
+    return () => {
+      unsubscribe;
+    };
+  }, [navigation]);
+  const renderTime = () => {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          alignSelf: 'center',
+          width: '50%',
+          padding: 40,
+          borderRadius: 20,
+          marginBottom: -20,
+        }}
+      >
+        <CountdownCircleTimer
+          key={key}
+          size={140}
+          isPlaying={isPlaying}
+          duration={30}
+          colors={['#7493ba', '#7493ba', '#7493ba', '#7493ba']}
+          colorsTime={[25, 20, 15, 0]}
+          onComplete={() => ({ shouldRepeat: false, delay: 2 })}
+        >
+          {({ remainingTime, color }) => (
+            useEffect(() => {
+              setRem(remainingTime);
+            }, [remainingTime]),
+            (
+              <>
+                <Text style={{ color, fontSize: 45, fontWeight: 'bold' }}>
+                  {remainingTime}
+                </Text>
+              </>
+            )
+          )}
+        </CountdownCircleTimer>
+      </View>
+    );
+  };
+
+  const restartQuiz = () => {
+    setShowScoreModal(false);
+    setKey((prevKey: number) => prevKey + 1);
+    setRem(30);
+    setIsPlaying(false);
+    setCurrentQuestionIndex(0);
+    setScore(0);
+    setCurrentOptionSelected(null);
+    setCorrectOption(null);
+    setIsOptionsDisabled(false);
+    setShowNextButton(false);
+    setmyArray2([]);
+    Animated.timing(progress, {
+      toValue: 0,
+      duration: 1000,
+      useNativeDriver: false,
+    }).start();
+  };
+  const scrollViewRef = useRef(null);
+
   const [navigating, setNavigating] = useState(false);
   const [myArray2, setmyArray2] = useState([]);
-  const [correctas, setCorrectas] = useState(0);
-  const [presicion, setPresicion] = useState(0);
-  const [velocidad, setVelocidad] = useState(0);
-  const [partidas, setPartidas] = useState(0);
-  const [jugadas, setJugadas] = useState(0);
-  const [puntuacion, setPuntuacion] = useState(0);
+  const [correctas, setCorrectas] = useState(Number);
+  const [presicion, setPresicion] = useState(Number);
+  const [velocidad, setVelocidad] = useState(Number);
+  const [partidas, setPartidas] = useState(Number);
+  const [jugadas, setJugadas] = useState(Number);
+  const [puntuacion, setPuntuacion] = useState();
   const [sound, setSound] = useState<Audio.Sound>(null);
   const [score, setScore] = useState(0);
   const [mensaje, setMensaje] = useState('');
@@ -75,18 +146,21 @@ const Quiz = ({ route, navigation }) => {
   const [correctOption, setCorrectOption] = useState(null);
   const [isOptionsDisabled, setIsOptionsDisabled] = useState(false);
   const [showScoreModal, setShowScoreModal] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [key, setKey] = useState(0);
-  const [rem, setRem] = useState(0);
-  const [progress, setProgress] = useState(new Animated.Value(0));
 
-  function getAvg(myArray2) {
+  const [progress, setProgress] = useState(new Animated.Value(0));
+  console.log('myaray' + myArray2);
+
+  console.log('key' + key);
+  console.log('rem' + rem);
+
+  function getAvg(myArray2: any[]) {
     const total = myArray2.reduce((acc, c) => acc + c, 0);
     return total / myArray2.length;
   }
 
   const average = getAvg(myArray2);
-  const { data: { scorez = 0 } = {} } = useQuery(queries.ShowScorez, {
+  console.log('averag' + average);
+  const { data: { scorez } = {} } = useQuery(queries.ShowScorez, {
     variables: {
       jugador: player,
     },
@@ -108,15 +182,35 @@ const Quiz = ({ route, navigation }) => {
       jugador: player,
       correctas: score,
       jugadas: preguntas?.length,
-      presicion: (correctas * 100) / jugadas / 100,
-      velocidad: (velocidad + (30 - average)) / 2,
+      presicion: Number(
+        (
+          ((correctas + score) * 100) /
+          (jugadas + preguntas?.length) /
+          100
+        ).toFixed(2)
+      ),
+      velocidad: Number((velocidad + (30 - average)) / 2).toFixed(1),
       puntuacion:
-        ((jugadas * Math.pow(presicion, 2.5)) / Math.pow(velocidad, 2)) * 100,
+        (((jugadas + preguntas?.length) *
+          Math.pow(
+            Number(
+              (
+                ((correctas + score) * 100) /
+                (jugadas + preguntas?.length) /
+                100
+              ).toFixed(2)
+            ),
+            2.5
+          )) /
+          Math.pow(
+            Math.round(Number(((velocidad + (30 - average)) / 2).toFixed(1))),
+            2
+          )) *
+        100,
       partidas: +1,
     },
-    refetchQueries: [{ query: ShowRank }, 'ShowScorez'],
+    refetchQueries: [{ query: ShowRanking }, 'ShowScorez'],
   });
-
   async function playSound() {
     console.log('Loading Sound');
     const { sound } = await Audio.Sound.createAsync(
@@ -162,14 +256,13 @@ const Quiz = ({ route, navigation }) => {
     return sound
       ? () => {
           sound.unloadAsync();
+          console.log('uploadSound');
         }
       : undefined;
   }, [sound]);
 
-  const aviso = (score) => {
+  const aviso = (score: number) => {
     const por = (score * 100) / preguntas.length;
-
-    const avisos = ['Excelente', 90, 'Muy bien', 70];
 
     console.log('pooor' + JSON.stringify(por));
     if (por >= 90) {
@@ -186,20 +279,19 @@ const Quiz = ({ route, navigation }) => {
     setCorrectaz(por);
   };
 
-  const validateAnswer = (selectedOption) => {
+  const validateAnswer = (selectedOption: any) => {
     let correct_option = preguntas[currentQuestionIndex].correct_option;
     setCurrentOptionSelected(selectedOption);
     setCorrectOption(correct_option);
     setIsOptionsDisabled(true);
     if (selectedOption == correct_option) {
-      setIsPlaying((prev) => prev);
       myArray2.push(rem);
       setScore(score + 1);
       playSound();
     } else {
       playSound2();
     }
-    setIsPlaying((prev) => !prev);
+    setIsPlaying(false);
 
     setShowNextButton(true);
   };
@@ -208,37 +300,19 @@ const Quiz = ({ route, navigation }) => {
       aviso(score);
       setShowScoreModal(true);
       playSound3();
+      setIsPlaying(false);
     } else {
       setCurrentQuestionIndex(currentQuestionIndex + 1);
       setCurrentOptionSelected(null);
       setCorrectOption(null);
       setIsOptionsDisabled(false);
       setShowNextButton(false);
-      setIsPlaying((prev) => !prev);
-      setKey((prevKey) => prevKey + 1);
+      setIsPlaying(true);
+      setKey((prevKey: number) => prevKey + 1);
       playSound4();
     }
     Animated.timing(progress, {
       toValue: currentQuestionIndex + 1,
-      duration: 1000,
-      useNativeDriver: false,
-    }).start();
-  };
-
-  const restartQuiz = () => {
-    setShowScoreModal(false);
-    setIsPlaying(!isPlaying);
-    setKey(0);
-    setRem(0);
-    setCurrentQuestionIndex(0);
-    setScore(0);
-    setCurrentOptionSelected(null);
-    setCorrectOption(null);
-    setIsOptionsDisabled(false);
-    setShowNextButton(false);
-    setmyArray2([]);
-    Animated.timing(progress, {
-      toValue: 0,
       duration: 1000,
       useNativeDriver: false,
     }).start();
@@ -254,12 +328,12 @@ const Quiz = ({ route, navigation }) => {
         <View
           style={{
             flexDirection: 'row',
-            alignItems: 'flex-end',
+            alignSelf: 'center',
           }}
         >
           <Text
             style={{
-              color: '#7493BA',
+              color: '#2d3b4',
               fontSize: 20,
               opacity: 0.6,
               marginRight: 2,
@@ -274,7 +348,7 @@ const Quiz = ({ route, navigation }) => {
 
         <Text
           style={{
-            color: '#7493BA',
+            color: '#2d3b48',
             fontSize: 30,
           }}
         >
@@ -304,7 +378,7 @@ const Quiz = ({ route, navigation }) => {
                   ? COLORS.success + '20'
                   : option == currentOptionSelected
                   ? COLORS.error + '20'
-                  : '#BE8ABC' + '20',
+                  : '#BE8ABC',
               height: 60,
               borderRadius: 20,
               flexDirection: 'row',
@@ -314,7 +388,7 @@ const Quiz = ({ route, navigation }) => {
               marginVertical: 10,
             }}
           >
-            <Text style={{ fontSize: 20, color: '#7493BA' }}>{option}</Text>
+            <Text style={{ fontSize: 20, color: 'white' }}>{option}</Text>
 
             {option == correctOption ? (
               <View
@@ -360,85 +434,164 @@ const Quiz = ({ route, navigation }) => {
       </View>
     );
   };
+  const renderOptionsError = () => {
+    let correct_option = preguntas[currentQuestionIndex].correct_option;
 
+    return (
+      <View>
+        {preguntas[currentQuestionIndex]?.options.map((option) => (
+          <TouchableOpacity
+            key={option}
+            style={{
+              borderWidth: 3,
+              borderColor:
+                option == correct_option
+                  ? COLORS.success
+                  : option != correct_option
+                  ? COLORS.error
+                  : '#BE8ABC' + '40',
+              backgroundColor:
+                option == correct_option
+                  ? COLORS.success + '20'
+                  : option == correct_option
+                  ? COLORS.error + '20'
+                  : '#BE8ABC' + '20',
+              height: 60,
+              borderRadius: 20,
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              paddingHorizontal: 20,
+              marginVertical: 10,
+            }}
+          >
+            <Text style={{ fontSize: 20, color: '#7493BA' }}>{option}</Text>
+
+            {option == correct_option ? (
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 30 / 2,
+                  backgroundColor: COLORS.success,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Ionicons
+                  name="ios-checkmark-circle"
+                  style={{
+                    color: COLORS.white,
+                    fontSize: 20,
+                  }}
+                />
+              </View>
+            ) : option != correct_option ? (
+              <View
+                style={{
+                  width: 30,
+                  height: 30,
+                  borderRadius: 30 / 2,
+                  backgroundColor: COLORS.error,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Ionicons
+                  name="ios-close-circle"
+                  style={{
+                    color: COLORS.white,
+                    fontSize: 20,
+                  }}
+                />
+              </View>
+            ) : null}
+          </TouchableOpacity>
+        ))}
+      </View>
+    );
+  };
   const renderNextButton = () => {
-    if (showNextButton) {
+    if (showNextButton || rem === 0) {
       return (
         <View
           style={{
-            flexDirection: 'row',
+            marginBottom: 10,
+            alignItems: 'center',
           }}
         >
-          <TouchableOpacity
-            onPress={() => {
-              restartQuiz();
-              navigation.navigate('Inicio');
-            }}
-            style={{
-              marginTop: 20,
-              marginRight: 5,
-              width: '50%',
-              backgroundColor: COLORS.accent,
-              padding: 20,
-              borderRadius: 5,
-            }}
-          >
-            <Text
-              style={{ fontSize: 20, color: COLORS.white, textAlign: 'center' }}
-            >
-              Cerrar
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={handleNext}
-            style={{
-              alignSelf: 'flex-start',
-              marginTop: 20,
-              width: '49%',
-              backgroundColor: '#BE8ABC',
-              padding: 20,
-              borderRadius: 20,
-            }}
-          >
-            <Text
-              style={{ fontSize: 20, color: COLORS.white, textAlign: 'center' }}
-            >
-              Siguiente
-            </Text>
-          </TouchableOpacity>
+          <Flex direction="row">
+            <HStack>
+              <TouchableOpacity
+                onPress={() => {
+                  restartQuiz();
+
+                  navigation.navigate('Perfil');
+                }}
+                style={{
+                  backgroundColor: '#7493ba',
+                  padding: 20,
+                  borderRadius: 20,
+                  alignSelf: 'center',
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: COLORS.white,
+                    textAlign: 'center',
+                  }}
+                >
+                  Cerrar
+                </Text>
+              </TouchableOpacity>
+              <Spacer></Spacer>
+              <View
+                style={{
+                  alignSelf: 'center',
+                  padding: 10,
+                  borderRadius: 10,
+                }}
+              >
+                <Pressable
+                  onPress={() => {
+                    console.info('ALERT');
+                    Alert.alert(
+                      'El mecanismo de acción del omeprazol es..',
+                      'Este grupo de compuestos actúa selectivamente sobre el eslabón final del proceso de secreción ácida gástrica, la ATPasa - H+/K+ o bomba de protones, por lo que también se les denomina inhibidores de la bomba de protones.',
+                      [{ text: 'OK', onPress: () => console.log('OK Pressed') }]
+                    );
+                  }}
+                >
+                  <Animacion anima="info"></Animacion>
+                </Pressable>
+              </View>
+              <Spacer></Spacer>
+
+              <TouchableOpacity
+                onPress={handleNext}
+                style={{
+                  backgroundColor: '#BE8ABC',
+                  padding: 20,
+                  borderRadius: 20,
+                  alignSelf: 'center',
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    color: COLORS.white,
+                    textAlign: 'center',
+                  }}
+                >
+                  Siguiente
+                </Text>
+              </TouchableOpacity>
+            </HStack>
+          </Flex>
         </View>
       );
     }
-  };
-
-  const renderTime = () => {
-    return (
-      <View
-        style={{
-          alignItems: 'center',
-          alignSelf: 'center',
-          width: '100%',
-          padding: 20,
-          borderRadius: 20,
-        }}
-      >
-        <CountdownCircleTimer
-          size={100}
-          isPlaying={isPlaying}
-          duration={30}
-          colors={['#004777', '#F7B801', '#A30000', '#A30000']}
-          colorsTime={[25, 20, 15, 0]}
-          onComplete={() => ({ shouldRepeat: false, delay: 2 })}
-        >
-          {({ remainingTime, color }) => (
-            useEffect(() => {
-              setRem(remainingTime);
-            }, [remainingTime]),
-            (<Text style={{ color, fontSize: 40 }}>{remainingTime}</Text>)
-          )}
-        </CountdownCircleTimer>
-      </View>
-    );
   };
 
   const progressAnim = progress.interpolate({
@@ -449,18 +602,21 @@ const Quiz = ({ route, navigation }) => {
     return (
       <View
         style={{
-          width: '100%',
-          height: 20,
+          alignSelf: 'center',
+          width: '70%',
+          height: 30,
           borderRadius: 20,
-          backgroundColor: '#00000020',
+          borderColor: '#c1c6b9',
+          borderWidth: 2,
+          backgroundColor: '#f4f4f4',
         }}
       >
         <Animated.View
           style={[
             {
-              height: 20,
-              borderRadius: 20,
-              backgroundColor: '#BE8ABC',
+              backgroundColor: '#c8abc9',
+              height: 27,
+              borderRadius: 30,
             },
             {
               width: progressAnim,
@@ -470,54 +626,6 @@ const Quiz = ({ route, navigation }) => {
       </View>
     );
   };
-
-  const renderEye = () => {
-    if (showNextButton) {
-      return (
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-          }}
-        >
-          <Pressable
-            onPress={() => {
-              console.info('ALERT');
-              Alert.alert(
-                'El mecanismo de acción del omeprazol es..',
-                'Este grupo de compuestos actúa selectivamente sobre el eslabón final del proceso de secreción ácida gástrica, la ATPasa - H+/K+ o bomba de protones, por lo que también se les denomina inhibidores de la bomba de protones.',
-                [{ text: 'OK', onPress: () => console.log('OK Pressed') }]
-              );
-            }}
-          >
-            <Ionicons
-              size={40}
-              name="information-circle-outline"
-              color="green"
-            />
-          </Pressable>
-        </View>
-      );
-    } else {
-      return (
-        <View
-          style={{
-            flex: 1,
-            alignItems: 'center',
-          }}
-        >
-          <Ionicons
-            name="ios-eye-off"
-            style={{
-              color: 'black',
-              fontSize: 40,
-            }}
-          />
-        </View>
-      );
-    }
-  };
-
   if (queryLoading) {
     return <Text>'Loading...'</Text>;
   }
@@ -526,31 +634,35 @@ const Quiz = ({ route, navigation }) => {
   }
 
   return (
-    <SafeAreaView
+    <ScrollView
+      ref={scrollViewRef}
+      onContentSizeChange={() => {
+        scrollViewRef.current?.scrollToEnd();
+      }}
       style={{
         flex: 1,
+
+        paddingHorizontal: 16,
+
+        position: 'relative',
       }}
     >
-      <StatusBar barStyle="light-content" backgroundColor={COLORS.primary} />
-      <ScrollView>
-        <View
+      <View>
+        <ImageBackground
+          source={require('../assets/fondo1.png')}
+          resizeMode="cover"
           style={{
             flex: 1,
-            paddingVertical: 40,
-            paddingHorizontal: 16,
-            backgroundColor: '#F1F1F1',
-            position: 'relative',
+            justifyContent: 'center',
           }}
+          imageStyle={{ opacity: 0.2 }}
         >
           {renderTime()}
 
           {renderProgressBar()}
-
           {renderQuestion()}
 
-          {renderOptions()}
-          {renderEye()}
-
+          {rem === 0 ? renderOptionsError() : renderOptions()}
           {renderNextButton()}
 
           <Modal
@@ -566,12 +678,12 @@ const Quiz = ({ route, navigation }) => {
                 justifyContent: 'center',
               }}
             >
-              <ConfettiCannon
+              {/* <ConfettiCannon
                 count={200}
                 origin={{ x: -10, y: 0 }}
                 fadeOut={true}
                 fallSpeed={5000}
-              />
+              /> */}
 
               <View
                 style={{
@@ -651,6 +763,26 @@ const Quiz = ({ route, navigation }) => {
                           : COLORS.error,
                     }}
                   >
+                    Presición/Anterior {presicion}%
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    marginVertical: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 22,
+                      color:
+                        score > preguntas.length / 2
+                          ? COLORS.success
+                          : COLORS.error,
+                    }}
+                  >
                     Presición {correctaz}%
                   </Text>
                 </View>
@@ -691,7 +823,7 @@ const Quiz = ({ route, navigation }) => {
                           : COLORS.error,
                     }}
                   >
-                    Velocidad Promedio {(30 - average).toFixed(1)}Segundos
+                    Velocidad Promedio {30 - average}Segundos
                   </Text>
                 </View>
                 <View
@@ -711,7 +843,7 @@ const Quiz = ({ route, navigation }) => {
                           : COLORS.error,
                     }}
                   >
-                    Partidas {partidas}
+                    Velocidad/Anterior {velocidad}Segundos
                   </Text>
                 </View>
                 <View
@@ -731,7 +863,27 @@ const Quiz = ({ route, navigation }) => {
                           : COLORS.error,
                     }}
                   >
-                    Puntuación Anterior {Math.floor(puntuacion)}
+                    Partidas {partidas + 1}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                    marginVertical: 10,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 22,
+                      color:
+                        score > preguntas.length / 2
+                          ? COLORS.success
+                          : COLORS.error,
+                    }}
+                  >
+                    Puntuación Anterior {puntuacion}
                   </Text>
                 </View>
                 <View
@@ -752,11 +904,24 @@ const Quiz = ({ route, navigation }) => {
                     }}
                   >
                     Puntuación/Actual
-                    {(
-                      ((jugadas * Math.pow(presicion, 2.5)) /
-                        Math.pow(velocidad, 2)) *
-                      100
-                    ).toFixed(2)}
+                    {(((jugadas + preguntas?.length) *
+                      Math.pow(
+                        Number(
+                          (
+                            ((correctas + score) * 100) /
+                            (jugadas + preguntas?.length) /
+                            100
+                          ).toFixed(2)
+                        ),
+                        2.5
+                      )) /
+                      Math.pow(
+                        Math.round(
+                          Number(((velocidad + (30 - average)) / 2).toFixed(1))
+                        ),
+                        2
+                      )) *
+                      100}
                   </Text>
                 </View>
 
@@ -767,7 +932,7 @@ const Quiz = ({ route, navigation }) => {
                       .then(() => {
                         restartQuiz();
                         setShowScoreModal(false);
-                        navigation.navigate('Inicio', {});
+                        navigation.navigate('Perfil');
                       })
                       .catch((err) => {
                         console.error('Ocurrió un error!', err);
@@ -796,24 +961,10 @@ const Quiz = ({ route, navigation }) => {
               </View>
             </View>
           </Modal>
-
-          <Image
-            source={require('../assets/DottedBG.png')}
-            style={{
-              width: SIZES.width,
-              height: 130,
-              zIndex: -1,
-              position: 'absolute',
-              bottom: 0,
-              left: 0,
-              right: 0,
-              opacity: 0.5,
-            }}
-            resizeMode={'contain'}
-          />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+        </ImageBackground>
+      </View>
+    </ScrollView>
+    // </SafeAreaView>
   );
 };
 

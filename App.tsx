@@ -1,3 +1,5 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 import { ApolloProvider } from '@apollo/react-hooks';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -36,17 +38,21 @@ function HomeScreen() {
             borderStyle: 'dotted',
             borderBottomColor: '#7493BA',
             borderBottomWidth: 6,
-            backgroundColor: '#F1F1F1',
+            backgroundColor: '#6f91be',
             height: 60,
           },
-          headerTitleStyle: { color: '#BE8ABC', fontSize: 30 },
+          headerTitleStyle: { color: 'white', fontSize: 30 },
           headerTitleAlign: 'center',
 
           tabBarStyle: {
             borderRadius: 10,
+            borderBottomRightRadius: 0,
+            borderBottomLeftRadius: 0,
+
             backgroundColor: '#7493BA',
             height: 70,
           },
+
           tabBarIcon: () => {
             if (route.name === 'Inicio') {
               return <Casa width={120} height={40} />;
@@ -56,7 +62,7 @@ function HomeScreen() {
               return <Brain width={120} height={40} />;
             } else if (route.name === 'Logros') {
               return <Bell width={120} height={40} />;
-            } else if (route.name === 'Board') {
+            } else if (route.name === 'Ranking') {
               return <Podium width={120} height={40} />;
             }
           },
@@ -73,7 +79,7 @@ function HomeScreen() {
           component={Quiz}
         />
         <Tab.Screen name="Logros" component={Logros} />
-        <Tab.Screen name="Board" component={Board} />
+        <Tab.Screen name="Ranking" component={Board} />
       </Tab.Navigator>
     </SafeAreaView>
   );

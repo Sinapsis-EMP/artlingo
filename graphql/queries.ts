@@ -21,6 +21,22 @@ export const ShowUsers = gql`
     }
   }
 `;
+export const ShowRanking = gql`
+  query ShowRanking {
+    users(order_by: { scorexxx: { pre_rank: asc } }) {
+      email
+      id
+      name
+      picture
+      plan
+      scorexxx {
+        jugador
+        pre_rank
+        puntuacion
+      }
+    }
+  }
+`;
 
 export const ShowRank = gql`
   query ShowRank {

@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 
 import { useQuery } from '@apollo/react-hooks';
 import { Avatar, Box, Text, VStack } from 'native-base';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ImageBackground, ScrollView, StyleSheet } from 'react-native';
 
 import EstadisticaCard from '../components/EstadisticaCard';
 import LevelCard from '../components/LevelCard';
@@ -22,12 +22,7 @@ const Perfil = () => {
       jugador: player,
     },
   });
-  // const {    data: { partidas } = {}  }= useQuery(queries.ShowPartidas, {
-  //   variables: {
-  //    email:player
 
-  //   },
-  // });
   const [correctas, setCorrectas] = useState();
   const [jugadas, setJugadas] = useState();
   const [presicion, setPresicion] = useState();
@@ -51,56 +46,66 @@ const Perfil = () => {
       setJugadas(scorez[0].jugadas);
       setPresicion(scorez[0].presicion);
       setPuntuacion(scorez[0].puntuacion);
-      setVelocidad(scorez[0].velocidad);
+      setVelocidad(scorez[0].velocidad.toFixed(1));
       setPartidas(scorez[0].partidas);
     }
   }, [scorez]);
 
   return (
     <ScrollView style={styles.container}>
-      <Box
-        w="100%"
+      <ImageBackground
+        source={require('../assets/fondo1.png')}
+        resizeMode="cover"
         style={{
-          backgroundColor: '#7493BA',
-          paddingTop: 20,
-          borderRadius: 30,
-          marginTop: 20,
-          marginBottom: 10,
+          flex: 1,
+          justifyContent: 'center',
         }}
+        imageStyle={{ opacity: 0.5 }}
       >
-        <VStack space={1} alignItems="center">
-          <Avatar
-            size="2xl"
-            bg="purple.600"
-            alignSelf="center"
-            source={{
-              uri: picture,
-            }}
-            style={{ marginTop: 20 }}
-          ></Avatar>
-          <Text fontSize={30} color={'white'} fontWeight="bold">
-            {name}
-          </Text>
-          <Text fontSize={18} color={'white'}>
-            {email}
-          </Text>
-        </VStack>
-      </Box>
+        <Box
+          w="100%"
+          style={{
+            backgroundColor: '#f4f4f4',
+            paddingTop: 20,
 
-      <Box>
-        <LevelCard
-          division={'bronce'}
-          correctas={correctas}
-          puntuacion={puntuacion}
-          jugadas={jugadas}
-          velocidad={velocidad}
-          partidas={partidas}
-        ></LevelCard>
-        <EstadisticaCard
-          correctas={correctas}
-          jugadas={jugadas}
-        ></EstadisticaCard>
-      </Box>
+            marginTop: 0,
+            marginBottom: 10,
+          }}
+        >
+          <VStack space={1} alignItems="center">
+            <Avatar
+              size="2xl"
+              bg="purple.600"
+              alignSelf="center"
+              source={{
+                uri: picture,
+              }}
+              style={{ marginTop: 20 }}
+            ></Avatar>
+            <Text fontSize={30} color={'#6f91be'} fontWeight="bold">
+              {name}
+            </Text>
+            <Text fontSize={18} color={'#6f91be'}>
+              {email}
+            </Text>
+          </VStack>
+        </Box>
+
+        <Box>
+          <LevelCard
+            division={'Bronce'}
+            correctas={correctas}
+            puntuacion={puntuacion}
+            jugadas={jugadas}
+            velocidad={velocidad}
+            partidas={partidas}
+          ></LevelCard>
+          <EstadisticaCard
+            correctas={correctas}
+            jugadas={jugadas}
+          ></EstadisticaCard>
+        </Box>
+      </ImageBackground>
     </ScrollView>
   );
 };

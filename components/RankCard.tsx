@@ -1,88 +1,116 @@
 import React, { useEffect, useState } from 'react';
 
-import { Box, HStack, Image, Text, VStack } from 'native-base';
+import { Ionicons } from '@expo/vector-icons';
 
-const RankCard = ({ nombre, score, pre_rank }) => {
-  const [foto, SetFoto] = useState();
+import { Avatar, Box, HStack, Text, VStack, View } from 'native-base';
+
+const RankCard = ({ nombre, score, pre_rank, picture, email }) => {
+  const [logok, setLogok] = useState('arrow-up');
+  const [kolor, setKolor] = useState('#97c59e');
   useEffect(() => {
-    if (nombre === 'mariana@example.com') {
-      SetFoto(
-        'https://cdn2.salud180.com/sites/default/files/styles/medium/public/field/image/2020/03/estas_son_las_caracteristicas_que_vuelven_a_una_mujer_irresistible_segun_ellos.jpg'
-      );
+    if (email === 'mariana@example.com') {
+      setLogok('arrow-up');
+      setKolor('#97c59e');
     }
-    if (nombre === 'arturo@example.com') {
-      SetFoto('https://definicion.de/wp-content/uploads/2008/05/hombre-1.jpg');
+    if (email === 'arturo@example.com') {
+      setLogok('arrow-up');
+      setKolor('#e6c643');
     }
-    if (nombre === 'david@example.com') {
-      SetFoto(
-        'https://elcomercio.pe/resizer/xLTqY6Rs9gieCw1QIrdm2k9r0hE=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/VQK6LJEPGFA7TKMRFCSWTNCHH4.jpg'
-      );
+    if (email === 'david@example.com') {
+      setLogok('arrow-up');
+      setKolor('#e6c643');
     }
-    if (nombre === 'pancho@example.com') {
-      SetFoto(
-        'https://sobrehistoria.com//wp-content/uploads/2021/08/dia-del-hombre-2021-cuando-es-se-celebra-istock.jpg'
-      );
-    }
-    if (nombre === 'marco@example.com') {
-      SetFoto(
-        'https://ath2.unileverservices.com/wp-content/uploads/sites/5/2018/02/acondicionador-de-cabello-para-hombre-e1517521713969.jpg'
-      );
-    }
-    if (nombre === 'jorge@example.com') {
-      SetFoto(
-        'https://elcomercio.pe/resizer/xLTqY6Rs9gieCw1QIrdm2k9r0hE=/580x330/smart/filters:format(jpeg):quality(75)/cloudfront-us-east-1.images.arcpublishing.com/elcomercio/VQK6LJEPGFA7TKMRFCSWTNCHH4.jpg'
-      );
-    }
-  }, [nombre]);
 
-  // var foto = "https://ath2.unileverservices.com/wp-content/uploads/sites/5/2018/02/acondicionador-de-cabello-para-hombre-e1517521713969.jpg"
+    if (email === 'marco@example.com') {
+      setLogok('arrow-down');
+      setKolor('#c69ec7');
+    }
+    if (email === 'jorge@example.com') {
+      setLogok('arrow-up');
+      setKolor('#e6c643');
+    }
+  }, [email]);
+
   var puntuacion = Math.round(score);
   return (
-    <Box
-      width={380}
-      style={{
-        backgroundColor: '#448AFF',
-        marginLeft: 10,
-        paddingLeft: 10,
-        borderRadius: 10,
-        marginBottom: 15,
-        marginTop: 10,
-      }}
-    >
-      <HStack space={2}>
-        <Text
-          alignSelf="center"
-          style={{
-            fontSize: 20,
-            fontWeight: 'bold',
-            color: 'white',
-            paddingLeft: 12,
-          }}
-        >
-          {pre_rank}
-        </Text>
-        <Image
-          margin={3}
-          source={{
-            uri: foto,
-          }}
-          alt="Alternate Text"
-          size="sm"
-          style={{ borderRadius: 10 }}
-        />
-        <VStack marginRight={5} alignSelf="center">
-          <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}>
-            {nombre}
-          </Text>
-          <Text style={{ fontSize: 13, color: 'white' }}>
-            Puntuación {puntuacion}
-          </Text>
-        </VStack>
-        {/* <Center>
-<Ionicons name="ios-medal" size={40} color={medalla}/>
-</Center> */}
-      </HStack>
-    </Box>
+    <>
+      <View alignSelf={'center'} marginBottom={5}>
+        <HStack space={0}>
+          <Box
+            width={12}
+            height={12}
+            borderRadius={'full'}
+            backgroundColor="#6f91be"
+            zIndex={3}
+            ml={-8}
+            mt={0}
+          >
+            <Text
+              alignSelf={'center'}
+              marginTop={4}
+              style={{
+                fontSize: 23,
+                fontWeight: '900',
+                color: 'white',
+              }}
+            >
+              {pre_rank}
+            </Text>
+          </Box>
+
+          <Box ml={-10}>
+            <Avatar
+              bg="purple.600"
+              size="2xl"
+              source={{
+                uri: picture,
+              }}
+            ></Avatar>
+          </Box>
+          <Box
+            width={10}
+            height={10}
+            borderRadius={'full'}
+            backgroundColor={kolor}
+            zIndex={3}
+            ml={-8}
+            mt={20}
+          >
+            {logok === 'arrow-up' ? (
+              <Ionicons name={'arrow-up'} size={40} color="#ffff" />
+            ) : (
+              <Ionicons name={'arrow-down'} size={40} color="#ffff" />
+            )}
+          </Box>
+          <Box
+            zIndex={-1}
+            alignSelf={'center'}
+            alignContent={'center'}
+            width={270}
+            height={89}
+            style={{
+              backgroundColor: '#6f91be',
+              marginLeft: -50,
+
+              borderRadius: 30,
+            }}
+          >
+            <VStack marginY={5} space={0} marginRight={5}>
+              <Text
+                marginLeft={8}
+                alignSelf="center"
+                style={{ fontSize: 18, fontWeight: 'bold', color: 'white' }}
+              >
+                {nombre}
+              </Text>
+              <Text alignSelf="center" style={{ fontSize: 13, color: 'white' }}>
+                Puntuación {puntuacion}
+              </Text>
+            </VStack>
+          </Box>
+        </HStack>
+      </View>
+    </>
   );
 };
 

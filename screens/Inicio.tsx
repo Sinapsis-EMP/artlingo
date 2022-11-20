@@ -21,7 +21,6 @@ const Inicio = ({ navigation }) => {
   const [numPreguntas, setNumPreguntas] = useState<number>();
   const [showModal, setShowModal] = useState(false);
   const [tema, setTema] = useState<string>(null);
-
   useEffect(() => {
     // TODO: Get the questions from the server
     setTimeout(() => {
@@ -49,11 +48,10 @@ const Inicio = ({ navigation }) => {
           </HStack>
         </VStack>
       </Center>
-
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <Modal.Content maxWidth="400px">
           <Modal.CloseButton />
-          <Modal.Header>Quiz de {tema}</Modal.Header>
+          <Modal.Header bgColor={'blue.100'}>{tema}</Modal.Header>
           <Modal.Body>
             <Box maxW={300}>
               <Text fontWeight="medium">Selecciona el número de preguntas</Text>
@@ -76,10 +74,14 @@ const Inicio = ({ navigation }) => {
             <Button
               disabled={!numPreguntas}
               borderRadius={10}
+              background={'#7493BA'}
               width="100%"
               onPress={() => {
-                navigation.navigate('Quiz', { limit2: numPreguntas });
+                navigation.navigate('Quiz', {
+                  limit2: numPreguntas,
+                });
                 setShowModal(false);
+
                 setNumPreguntas(null);
               }}
             >

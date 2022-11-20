@@ -9,6 +9,7 @@ import {
   Divider,
   Flex,
   HStack,
+  Spacer,
   Text,
   VStack,
 } from 'native-base';
@@ -27,16 +28,140 @@ const LevelCard = ({
   return (
     <Container
       maxWidth="full"
-      marginHorizontal={20}
       style={{
-        backgroundColor: 'black',
+        backgroundColor: '#be8abc',
         borderRadius: 20,
         paddingTop: 20,
         marginTop: 20,
-        marginBottom: 10,
+        marginHorizontal: 20,
       }}
     >
-      <Center w="100%">
+      <VStack alignSelf={'center'}>
+        <Flex direction="row">
+          <Box>
+            <HStack alignSelf={'center'}>
+              <Ionicons name="medal-outline" size={40} color="#6f91be" />
+              <VStack>
+                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                  {division}
+                </Text>
+                <Text
+                  marginLeft={5}
+                  marginRight={2}
+                  marginBottom={5}
+                  color="gray.500"
+                >
+                  División actual
+                </Text>
+              </VStack>
+            </HStack>
+          </Box>
+          <Spacer />
+          <Box>
+            <HStack>
+              <Ionicons name="flash-outline" size={40} color="#6f91be" />
+
+              <VStack>
+                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                  {points}
+                </Text>
+                <Text
+                  marginLeft={5}
+                  marginRight={2}
+                  marginBottom={5}
+                  color="gray.500"
+                >
+                  Puntuación
+                </Text>
+              </VStack>
+            </HStack>
+          </Box>
+        </Flex>
+        <Flex direction="row">
+          <Box>
+            <HStack>
+              <Ionicons name="create-outline" size={40} color="#6f91be" />
+              <VStack>
+                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                  {jugadas}
+                </Text>
+                <Text
+                  marginLeft={5}
+                  marginRight={2}
+                  marginBottom={5}
+                  color="gray.500"
+                >
+                  Jugadas
+                </Text>
+              </VStack>
+            </HStack>
+          </Box>
+          <Spacer />
+          <Box>
+            <HStack>
+              <Ionicons
+                name="checkmark-circle-outline"
+                size={40}
+                color="#6f91be"
+              />
+              <VStack>
+                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                  {correctas}
+                </Text>
+                <Text
+                  marginLeft={5}
+                  marginRight={2}
+                  marginBottom={5}
+                  color="gray.500"
+                >
+                  Correctas
+                </Text>
+              </VStack>
+            </HStack>
+          </Box>
+        </Flex>
+        <Flex direction="row">
+          <Box>
+            <HStack>
+              <Ionicons name="time-outline" size={40} color="#6f91be" />
+              <VStack>
+                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                  {tiempo}
+                </Text>
+                <Text
+                  marginLeft={5}
+                  marginRight={2}
+                  marginBottom={5}
+                  color="gray.500"
+                >
+                  Velocidad
+                </Text>
+              </VStack>
+            </HStack>
+          </Box>
+          <Spacer />
+          <Box>
+            <HStack>
+              <Ionicons name="play-circle-outline" size={40} color="#6f91be" />
+
+              <VStack>
+                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                  {partidas}
+                </Text>
+                <Text
+                  marginLeft={5}
+                  marginRight={2}
+                  marginBottom={5}
+                  color="gray.500"
+                >
+                  Partidass
+                </Text>
+              </VStack>
+            </HStack>
+          </Box>
+        </Flex>
+      </VStack>
+      {/* <Center w="100%">
         <Box w="90%" maxW="400">
           <Flex direction="row">
             <Ionicons name="ios-medal" size={40} color="#BE8325" />
@@ -127,7 +252,7 @@ const LevelCard = ({
                 marginBottom={5}
                 color="gray.500"
               >
-                Velocidad{' '}
+                Velocidad
               </Text>
             </VStack>
 
@@ -147,7 +272,7 @@ const LevelCard = ({
             </Box>
           </Flex>
         </Box>
-      </Center>
+      </Center> */}
     </Container>
   );
 };

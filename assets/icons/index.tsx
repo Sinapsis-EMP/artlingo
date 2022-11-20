@@ -11,3 +11,4 @@ export { default as Brain } from './Brain';
 export { default as Casa } from './Casa';
 export { default as Persona } from './Persona';
 export { default as Podium } from './Podium';
+export { default as Circle } from './Circle';
