@@ -30,7 +30,7 @@ export const COLORS = {
   white: '#FFFFFF',
   background: '#252C4A',
 };
-const Logros = () => {
+const Notificaciones = () => {
   const [jugadas, setJugadas] = useState(170);
   const [correctas, setCorrectas] = useState(71);
   const [presicion, setPresicion] = useState(0);
@@ -77,4 +77,4 @@ const Logros = () => {
     </>
   );
 };
-export default Logros;
+export default Notificaciones;

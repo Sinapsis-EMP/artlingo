@@ -15,7 +15,7 @@ import Podium from './assets/icons/Podium';
 import { client } from './graphql';
 import Board from './screens/Board';
 import Inicio from './screens/Inicio';
-import Logros from './screens/Logros';
+import Notificaciones from './screens/Notificaciones';
 import Perfil from './screens/Perfil';
 import Quiz from './screens/Quiz';
 
@@ -60,7 +60,7 @@ function HomeScreen() {
               return <Persona width={120} height={40} />;
             } else if (route.name === 'Quiz') {
               return <Brain width={120} height={40} />;
-            } else if (route.name === 'Logros') {
+            } else if (route.name === 'Notificaciones') {
               return <Bell width={120} height={40} />;
             } else if (route.name === 'Ranking') {
               return <Podium width={120} height={40} />;
@@ -78,7 +78,7 @@ function HomeScreen() {
           name="Quiz"
           component={Quiz}
         />
-        <Tab.Screen name="Logros" component={Logros} />
+        <Tab.Screen name="Notificaciones" component={Notificaciones} />
         <Tab.Screen name="Ranking" component={Board} />
       </Tab.Navigator>
     </SafeAreaView>

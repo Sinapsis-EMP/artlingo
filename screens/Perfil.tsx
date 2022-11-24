@@ -7,11 +7,12 @@ import { ImageBackground, ScrollView, StyleSheet } from 'react-native';
 
 import EstadisticaCard from '../components/EstadisticaCard';
 import LevelCard from '../components/LevelCard';
+import Logros from '../components/Logros';
 import { queries } from '../graphql';
 
-const player = 'marco@example.com';
+const player = 'david@example.com';
 
-const Perfil = () => {
+const Perfil = ({ navigation }) => {
   const { data: { users } = {} } = useQuery(queries.ShowUser, {
     variables: {
       email: player,
@@ -104,6 +105,14 @@ const Perfil = () => {
             correctas={correctas}
             jugadas={jugadas}
           ></EstadisticaCard>
+        </Box>
+        <Box>
+          <Logros
+            correctas={correctas}
+            jugadas={jugadas}
+            partidas={partidas}
+            navigation={navigation}
+          ></Logros>
         </Box>
       </ImageBackground>
     </ScrollView>

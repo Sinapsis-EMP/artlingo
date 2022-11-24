@@ -59,6 +59,19 @@ export const ShowUser = gql`
   }
 `;
 
+export const ShowLogroz = gql`
+  query ShowLogroz($email: String!) {
+    logroz(where: { email: { _eq: $email } }) {
+      email
+      logro1
+      logro2
+      logro3
+      logro4
+      id
+    }
+  }
+`;
+
 export const ShowQuestions = gql`
   query ShowQuestions($limit: Int = 0) {
     preguntas(limit: $limit) {

@@ -67,6 +67,28 @@ export const UpdateScorez = gql`
     }
   }
 `;
+
+export const UpdateLogroz = gql`
+  mutation UpdateLogroz(
+    $logro1: Boolean!
+    $logro2: Boolean!
+    $logro3: Boolean!
+    $logro4: Boolean!
+    $email: String!
+  ) {
+    update_logroz(
+      _set: {
+        logro1: $logro1
+        logro2: $logro2
+        logro3: $logro3
+        logro4: $logro4
+      }
+      where: { email: { _eq: $email } }
+    ) {
+      affected_rows
+    }
+  }
+`;
 export const UpdatePre = gql`
   mutation UpdatePre($jugador: String!, $presicion: numeric!) {
     update_scores(

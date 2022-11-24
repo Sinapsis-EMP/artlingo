@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Svg, { Path, SvgProps } from 'react-native-svg';
 
-const Svg6 = (props: SvgProps) => (
+const SvgHospital = (props: SvgProps) => (
   <Svg width={1000} viewBox="0 0 750 750" height={1000} {...props}>
     <Path fill="#dda2d9" d="M267.695 96.313h214.309v557.375H267.695Zm0 0" />
     <Path fill="#bf8abc" d="M374.852 96.313h107.152v557.375H374.852Zm0 0" />
@@ -24,4 +24,4 @@ const Svg6 = (props: SvgProps) => (
     />
   </Svg>
 );
-export default Svg6;
+export default SvgHospital;

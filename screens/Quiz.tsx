@@ -42,7 +42,7 @@ export const SIZES = {
   width: width,
   height: height,
 };
-const player = 'marco@example.com';
+const player = 'david@example.com';
 
 const Quiz = ({ route, navigation }) => {
   const limit = route.params?.limit2;

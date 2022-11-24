@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 import LottieView from 'lottie-react-native';
+import { Hidden } from 'native-base';
 import { Animated, Easing, View } from 'react-native';
 
 const Animacion = ({ anima }) => {
   // let animacion = `'${anima}'`;
   // console.log(`'${anima}'`);
-  let animacion = 'time';
+  // let animacion = 'time';
+  // const [fin, setFin] = useState(true);
   return (
     <View>
       {/* {cali === 'buena' && resp === false && (
@@ -99,6 +101,19 @@ const Animacion = ({ anima }) => {
           autoPlay
           loop
           duration={1000}
+        />
+      )}
+      {anima === 'achiv' && (
+        <LottieView
+          style={{
+            height: 300,
+            width: 300,
+          }}
+          source={require('../assets/achivment.json')}
+          autoPlay
+          loop={false}
+          duration={6000}
+          // onAnimationFinish={() => setFin(false)}
         />
       )}
     </View>
