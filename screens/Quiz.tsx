@@ -17,7 +17,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ConfettiCannon from 'react-native-confetti-cannon';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
 import Animacion from '../components/Animacion';
@@ -42,7 +41,7 @@ export const SIZES = {
   width: width,
   height: height,
 };
-const player = 'mariana@example.com';
+const player = 'marco@example.com';
 
 const Quiz = ({ route, navigation }) => {
   const limit = route.params?.limit2;

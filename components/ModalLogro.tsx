@@ -1,36 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
-import { Ionicons } from '@expo/vector-icons';
-
-import { useFonts } from 'expo-font';
 import LottieView from 'lottie-react-native';
-import {
-  Avatar,
-  Box,
-  Button,
-  Center,
-  Container,
-  Divider,
-  Flex,
-  HStack,
-  Modal,
-  Spacer,
-  Text,
-  VStack,
-  View,
-} from 'native-base';
-
-import { Ambulancia, Jeringa } from '../assets/icons';
+import { Modal, Text } from 'native-base';
 
 const ModalLogro = ({ show }) => {
   const [showModal, setShowModal] = useState(show);
   return (
     <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
-      <Modal.Content
-        borderRadius={30}
-        backgroundColor={'white'}
-        maxWidth="400px"
-      >
+      <Modal.Content borderRadius={30} backgroundColor="white" maxWidth="400px">
         {/* <Modal.Header>
             <Text> Nuevo Logro Desbloqueado</Text>
           </Modal.Header> */}
@@ -49,7 +26,7 @@ const ModalLogro = ({ show }) => {
 
         <Modal.Footer>
           <Text
-            justifyContent={'center'}
+            justifyContent="center"
             style={{ fontSize: 20, color: 'black', fontWeight: 'bold' }}
           >
             Nuevo Logro Desbloqueado

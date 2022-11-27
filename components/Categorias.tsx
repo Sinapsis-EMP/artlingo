@@ -17,12 +17,12 @@ const Categorias = ({ picture, nombre }) => {
       <VStack space={4}>
         <Avatar bg="#F1F1F1" size="2xl" alignSelf="center" source={picture} />
         <Box alignSelf="center">
-          <Text color={'#BE8ABC'} fontFamily="Gotika-Regular" fontSize={22}>
+          <Text color="#BE8ABC" fontFamily="Gotika-Regular" fontSize={22}>
             {nombre}
           </Text>
         </Box>
-        <Box marginTop={-3} borderColor={'#A28787'} borderWidth={1}>
-          <Text color={'#7493BA'} fontSize={15} textAlign={'center'}>
+        <Box marginTop={-3} borderColor="#A28787" borderWidth={1}>
+          <Text color="#7493BA" fontSize={15} textAlign="center">
             50 preguntas
           </Text>
         </Box>

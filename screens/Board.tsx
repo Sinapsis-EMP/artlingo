@@ -1,9 +1,8 @@
 import React from 'react';
 
 import { useQuery } from '@apollo/react-hooks';
-import Constants from 'expo-constants';
 import { Container } from 'native-base';
-import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet } from 'react-native';
 
 import RankCard from '../components/RankCard';
 import { queries } from '../graphql';

@@ -36,13 +36,13 @@ const LevelCard = ({
         marginHorizontal: 20,
       }}
     >
-      <VStack alignSelf={'center'}>
+      <VStack alignSelf="center">
         <Flex direction="row">
           <Box>
-            <HStack alignSelf={'center'}>
+            <HStack alignSelf="center">
               <Ionicons name="medal-outline" size={40} color="#6f91be" />
               <VStack>
-                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                <Text fontWeight="bold" marginLeft={5} color="white">
                   {division}
                 </Text>
                 <Text
@@ -62,7 +62,7 @@ const LevelCard = ({
               <Ionicons name="flash-outline" size={40} color="#6f91be" />
 
               <VStack>
-                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                <Text fontWeight="bold" marginLeft={5} color="white">
                   {points}
                 </Text>
                 <Text
@@ -82,7 +82,7 @@ const LevelCard = ({
             <HStack>
               <Ionicons name="create-outline" size={40} color="#6f91be" />
               <VStack>
-                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                <Text fontWeight="bold" marginLeft={5} color="white">
                   {jugadas}
                 </Text>
                 <Text
@@ -105,7 +105,7 @@ const LevelCard = ({
                 color="#6f91be"
               />
               <VStack>
-                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                <Text fontWeight="bold" marginLeft={5} color="white">
                   {correctas}
                 </Text>
                 <Text
@@ -125,7 +125,7 @@ const LevelCard = ({
             <HStack>
               <Ionicons name="time-outline" size={40} color="#6f91be" />
               <VStack>
-                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                <Text fontWeight="bold" marginLeft={5} color="white">
                   {tiempo}
                 </Text>
                 <Text
@@ -145,7 +145,7 @@ const LevelCard = ({
               <Ionicons name="play-circle-outline" size={40} color="#6f91be" />
 
               <VStack>
-                <Text fontWeight={'bold'} marginLeft={5} color="white">
+                <Text fontWeight="bold" marginLeft={5} color="white">
                   {partidas}
                 </Text>
                 <Text
@@ -166,7 +166,7 @@ const LevelCard = ({
           <Flex direction="row">
             <Ionicons name="ios-medal" size={40} color="#BE8325" />
             <VStack>
-              <Text fontWeight={'bold'} marginLeft={5} color="white">
+              <Text fontWeight="bold" marginLeft={5} color="white">
                 {division}
               </Text>
               <Text
@@ -185,7 +185,7 @@ const LevelCard = ({
                 <Ionicons name="ios-flash" size={40} color="#FACB48" />
 
                 <VStack>
-                  <Text fontWeight={'bold'} marginLeft={5} color="white">
+                  <Text fontWeight="bold" marginLeft={5} color="white">
                     {points}
                   </Text>
                   <Text
@@ -205,7 +205,7 @@ const LevelCard = ({
           <Flex direction="row">
             <Ionicons name="ios-create" size={40} color="#EE4884" />
             <VStack>
-              <Text fontWeight={'bold'} marginLeft={5} color="white">
+              <Text fontWeight="bold" marginLeft={5} color="white">
                 {jugadas}
               </Text>
               <Text
@@ -227,7 +227,7 @@ const LevelCard = ({
                   color="#3DAB39"
                 />
                 <VStack>
-                  <Text fontWeight={'bold'} marginLeft={5} color="white">
+                  <Text fontWeight="bold" marginLeft={5} color="white">
                     {correctas}
                   </Text>
                   <Text marginLeft={5} marginRight={2} color="gray.500">
@@ -243,7 +243,7 @@ const LevelCard = ({
           <Flex direction="row">
             <Ionicons name="ios-time" size={40} color="#48CBEE" />
             <VStack>
-              <Text fontWeight={'bold'} marginLeft={5} color="white">
+              <Text fontWeight="bold" marginLeft={5} color="white">
                 {tiempo} seg
               </Text>
               <Text
@@ -261,7 +261,7 @@ const LevelCard = ({
               <HStack>
                 <Ionicons name="ios-play-circle" size={40} color="#A433C9" />
                 <VStack>
-                  <Text fontWeight={'bold'} marginLeft={5} color="white">
+                  <Text fontWeight="bold" marginLeft={5} color="white">
                     {partidas}
                   </Text>
                   <Text marginLeft={5} marginRight={2} color="gray.500">

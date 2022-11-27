@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useQuery } from '@apollo/react-hooks';
 import { Avatar, Box, Text, VStack } from 'native-base';
@@ -10,7 +9,7 @@ import LevelCard from '../components/LevelCard';
 import Logros from '../components/Logros';
 import { queries } from '../graphql';
 
-const player = 'mariana@example.com';
+const player = 'marco@example.com';
 
 const Perfil = ({ navigation }) => {
   const { data: { users } = {} } = useQuery(queries.ShowUser, {
@@ -79,15 +78,13 @@ const Perfil = ({ navigation }) => {
               size="2xl"
               bg="purple.600"
               alignSelf="center"
-              source={{
-                uri: picture,
-              }}
+              source={{ uri: picture }}
               style={{ marginTop: 20 }}
-            ></Avatar>
-            <Text fontSize={30} color={'#6f91be'} fontWeight="bold">
+            />
+            <Text fontSize={30} color="#6f91be" fontWeight="bold">
               {name}
             </Text>
-            <Text fontSize={18} color={'#6f91be'}>
+            <Text fontSize={18} color="#6f91be">
               {email}
             </Text>
           </VStack>
@@ -112,7 +109,7 @@ const Perfil = ({ navigation }) => {
         </Box>
         <Box>
           <LevelCard
-            division={'Bronce'}
+            division="Bronce"
             correctas={correctas}
             puntuacion={puntuacion}
             jugadas={jugadas}

@@ -5,26 +5,20 @@ import { Ionicons } from '@expo/vector-icons';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import { useFonts } from 'expo-font';
 import {
-  Avatar,
   Box,
-  Button,
-  Center,
   Container,
   Divider,
   Flex,
   HStack,
-  Modal,
-  Spacer,
   Text,
   VStack,
-  View,
 } from 'native-base';
 
 import { Ambulancia, Hospital, Jeringa, Silla } from '../assets/icons';
 import { mutations, queries } from '../graphql';
 import ModalLogro from './ModalLogro';
 
-const player = 'mariana@example.com';
+const player = 'marco@example.com';
 
 const Logros = ({ jugadas, partidas, correctas, navigation }) => {
   const { data: { logroz } = {} } = useQuery(queries.ShowLogroz, {
@@ -113,7 +107,7 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
             <Box>
               <Ambulancia width={120} height={120} />
             </Box>
-            <VStack alignSelf={'center'}>
+            <VStack alignSelf="center">
               <Box>
                 <Text
                   style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}
@@ -129,13 +123,13 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
             </VStack>
             {logro1 ? (
               <>
-                <Box alignSelf={'center'}>
-                  <Ionicons name={'lock-open'} size={40} color="green" />
+                <Box alignSelf="center">
+                  <Ionicons name="lock-open" size={40} color="green" />
                 </Box>
               </>
             ) : (
-              <Box alignSelf={'center'}>
-                <Ionicons name={'lock-closed'} size={40} color="grey" />
+              <Box alignSelf="center">
+                <Ionicons name="lock-closed" size={40} color="grey" />
               </Box>
             )}
           </HStack>
@@ -146,7 +140,7 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
             <Box>
               <Jeringa width={120} height={120} />
             </Box>
-            <VStack alignSelf={'center'}>
+            <VStack alignSelf="center">
               <Box>
                 <Text
                   style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}
@@ -162,13 +156,13 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
             </VStack>
             {logro2 ? (
               <>
-                <Box alignSelf={'center'}>
-                  <Ionicons name={'lock-open'} size={40} color="green" />
+                <Box alignSelf="center">
+                  <Ionicons name="lock-open" size={40} color="green" />
                 </Box>
               </>
             ) : (
-              <Box alignSelf={'center'}>
-                <Ionicons name={'lock-closed'} size={40} color="grey" />
+              <Box alignSelf="center">
+                <Ionicons name="lock-closed" size={40} color="grey" />
               </Box>
             )}
           </HStack>
@@ -180,7 +174,7 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
             <Box>
               <Silla width={120} height={120} />
             </Box>
-            <VStack alignSelf={'center'}>
+            <VStack alignSelf="center">
               <Box>
                 <Text
                   style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}
@@ -196,13 +190,13 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
             </VStack>
             {logro3 ? (
               <>
-                <Box alignSelf={'center'}>
-                  <Ionicons name={'lock-open'} size={40} color="green" />
+                <Box alignSelf="center">
+                  <Ionicons name="lock-open" size={40} color="green" />
                 </Box>
               </>
             ) : (
-              <Box alignSelf={'center'}>
-                <Ionicons name={'lock-closed'} size={40} color="grey" />
+              <Box alignSelf="center">
+                <Ionicons name="lock-closed" size={40} color="grey" />
               </Box>
             )}
           </HStack>
@@ -214,7 +208,7 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
             <Box>
               <Hospital width={120} height={120} />
             </Box>
-            <VStack alignSelf={'center'}>
+            <VStack alignSelf="center">
               <Box>
                 <Text
                   style={{ fontSize: 20, color: 'white', fontWeight: 'bold' }}
@@ -230,13 +224,13 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
             </VStack>
             {logro4 ? (
               <>
-                <Box alignSelf={'center'}>
-                  <Ionicons name={'lock-open'} size={40} color="green" />
+                <Box alignSelf="center">
+                  <Ionicons name="lock-open" size={40} color="green" />
                 </Box>
               </>
             ) : (
-              <Box alignSelf={'center'}>
-                <Ionicons name={'lock-closed'} size={40} color="grey" />
+              <Box alignSelf="center">
+                <Ionicons name="lock-closed" size={40} color="grey" />
               </Box>
             )}
           </HStack>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 import {
   Box,
   Center,
@@ -17,7 +15,6 @@ const EstadisticaCard = ({ correctas, jugadas }) => {
   return (
     <Container
       maxWidth="full"
-      marginHorizontal={20}
       style={{
         backgroundColor: 'white',
         paddingTop: 20,

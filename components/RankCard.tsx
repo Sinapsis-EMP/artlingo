@@ -34,19 +34,19 @@ const RankCard = ({ nombre, score, pre_rank, picture, email }) => {
   var puntuacion = Math.round(score);
   return (
     <>
-      <View alignSelf={'center'} marginBottom={5}>
+      <View alignSelf="center" marginBottom={5}>
         <HStack space={0}>
           <Box
             width={12}
             height={12}
-            borderRadius={'full'}
+            borderRadius="full"
             backgroundColor="#6f91be"
             zIndex={3}
             ml={-8}
             mt={0}
           >
             <Text
-              alignSelf={'center'}
+              alignSelf="center"
               marginTop={4}
               style={{
                 fontSize: 23,
@@ -70,22 +70,22 @@ const RankCard = ({ nombre, score, pre_rank, picture, email }) => {
           <Box
             width={10}
             height={10}
-            borderRadius={'full'}
+            borderRadius="full"
             backgroundColor={kolor}
             zIndex={3}
             ml={-8}
             mt={20}
           >
             {logok === 'arrow-up' ? (
-              <Ionicons name={'arrow-up'} size={40} color="#ffff" />
+              <Ionicons name="arrow-up" size={40} color="#ffff" />
             ) : (
-              <Ionicons name={'arrow-down'} size={40} color="#ffff" />
+              <Ionicons name="arrow-down" size={40} color="#ffff" />
             )}
           </Box>
           <Box
             zIndex={-1}
-            alignSelf={'center'}
-            alignContent={'center'}
+            alignSelf="center"
+            alignContent="center"
             width={270}
             height={89}
             style={{

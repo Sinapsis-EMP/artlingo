@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 import LottieView from 'lottie-react-native';
-import { Hidden } from 'native-base';
-import { Animated, Easing, View } from 'react-native';
+import { View } from 'react-native';
 
 const Animacion = ({ anima }) => {
   // let animacion = `'${anima}'`;

@@ -23,7 +23,7 @@ import pill from '../assets/pill.png';
 import Categorias from '../components/Categorias';
 import { queries } from '../graphql';
 
-const player = 'mariana@example.com';
+const player = 'marco@example.com';
 
 const Inicio = ({ navigation }) => {
   const { data: { users } = {} } = useQuery(queries.ShowUser, {
@@ -60,20 +60,20 @@ const Inicio = ({ navigation }) => {
                 setShowModal(true);
               }}
             >
-              <Categorias nombre={'Farmacología'} picture={pill}></Categorias>
+              <Categorias nombre="Farmacología" picture={pill}></Categorias>
             </Pressable>
-            <Categorias nombre={'Anatomía'} picture={pill}></Categorias>
+            <Categorias nombre="Anatomía" picture={pill}></Categorias>
           </HStack>
           <HStack space={10} alignItems="center">
-            <Categorias nombre={'Farmacología'} picture={pill}></Categorias>
-            <Categorias nombre={'Farmacología'} picture={pill}></Categorias>
+            <Categorias nombre="Farmacología" picture={pill}></Categorias>
+            <Categorias nombre="Farmacología" picture={pill}></Categorias>
           </HStack>
         </VStack>
       </Center>
       <Modal isOpen={showModal} onClose={() => setShowModal(false)}>
         <Modal.Content maxWidth="400px">
           <Modal.CloseButton />
-          <Modal.Header bgColor={'blue.100'}>{tema}</Modal.Header>
+          <Modal.Header bgColor="blue.100">{tema}</Modal.Header>
           <Modal.Body>
             <Box maxW={300}>
               {plan === 'Gratuito' ? (
@@ -191,7 +191,7 @@ const Inicio = ({ navigation }) => {
             <Button
               disabled={!numPreguntas}
               borderRadius={10}
-              background={'#7493BA'}
+              background="#7493BA"
               width="100%"
               onPress={() => {
                 navigation.navigate('Quiz', {
