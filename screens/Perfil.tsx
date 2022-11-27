@@ -10,7 +10,7 @@ import LevelCard from '../components/LevelCard';
 import Logros from '../components/Logros';
 import { queries } from '../graphql';
 
-const player = 'david@example.com';
+const player = 'mariana@example.com';
 
 const Perfil = ({ navigation }) => {
   const { data: { users } = {} } = useQuery(queries.ShowUser, {
@@ -33,12 +33,13 @@ const Perfil = ({ navigation }) => {
   const [email, setEmail] = useState();
   const [picture, setPicture] = useState();
   const [partidas, setPartidas] = useState();
-
+  const [plan, setPlan] = useState();
   useEffect(() => {
     if (users) {
       setName(users[0].name);
       setEmail(users[0].email);
       setPicture(users[0].picture);
+      setPlan(users[0].plan);
     }
   }, [users]);
   useEffect(() => {
@@ -91,7 +92,24 @@ const Perfil = ({ navigation }) => {
             </Text>
           </VStack>
         </Box>
-
+        <Box
+          alignContent={'center'}
+          style={{
+            backgroundColor: '#be8abc',
+            borderRadius: 20,
+            paddingTop: 10,
+            marginTop: 20,
+            marginHorizontal: 20,
+          }}
+          maxWidth="full"
+        >
+          <Text
+            style={{ fontSize: 20, fontWeight: 'bold' }}
+            textAlign={'center'}
+          >
+            PLAN {plan}
+          </Text>
+        </Box>
         <Box>
           <LevelCard
             division={'Bronce'}
@@ -106,6 +124,7 @@ const Perfil = ({ navigation }) => {
             jugadas={jugadas}
           ></EstadisticaCard>
         </Box>
+
         <Box>
           <Logros
             correctas={correctas}

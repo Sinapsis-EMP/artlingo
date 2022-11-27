@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import Svg, { ClipPath, Defs, G, Path, SvgProps } from 'react-native-svg';
 
-const Svg13 = (props: SvgProps) => (
+const SvgPlan = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
     width={1000}
@@ -39,4 +39,4 @@ const Svg13 = (props: SvgProps) => (
     </G>
   </Svg>
 );
-export default Svg13;
+export default SvgPlan;

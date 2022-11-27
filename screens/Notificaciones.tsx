@@ -31,10 +31,10 @@ export const COLORS = {
   background: '#252C4A',
 };
 const Notificaciones = () => {
-  const [jugadas, setJugadas] = useState(170);
-  const [correctas, setCorrectas] = useState(71);
+  const [jugadas, setJugadas] = useState(140);
+  const [correctas, setCorrectas] = useState(60);
   const [presicion, setPresicion] = useState(0);
-  const [velocidad, setVelocidad] = useState(4);
+  const [velocidad, setVelocidad] = useState(3);
   const [partidas, setPartidas] = useState();
   const [puntuacion, setPuntuacion] = useState(0);
 

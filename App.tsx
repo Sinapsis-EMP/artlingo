@@ -17,6 +17,7 @@ import Board from './screens/Board';
 import Inicio from './screens/Inicio';
 import Notificaciones from './screens/Notificaciones';
 import Perfil from './screens/Perfil';
+import Planes from './screens/Planes';
 import Quiz from './screens/Quiz';
 
 const Tab = createBottomTabNavigator();
@@ -64,6 +65,8 @@ function HomeScreen() {
               return <Bell width={120} height={40} />;
             } else if (route.name === 'Ranking') {
               return <Podium width={120} height={40} />;
+            } else if (route.name === 'Planes') {
+              return <Podium width={120} height={40} />;
             }
           },
         })}
@@ -78,8 +81,16 @@ function HomeScreen() {
           name="Quiz"
           component={Quiz}
         />
+
         <Tab.Screen name="Notificaciones" component={Notificaciones} />
         <Tab.Screen name="Ranking" component={Board} />
+        <Tab.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Planes"
+          component={Planes}
+        />
       </Tab.Navigator>
     </SafeAreaView>
   );

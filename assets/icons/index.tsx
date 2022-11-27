@@ -1,7 +1,7 @@
 export { default as Silla } from './Silla';
 export { default as Ambulancia } from './Ambulancia';
 export { default as Svg12 } from './12';
-export { default as Svg13 } from './13';
+export { default as Plan } from './Plan';
 export { default as Hospital } from './Hospital';
 export { default as Jeringa } from './Jeringa';
 export { default as Svg8 } from './8';

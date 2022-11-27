@@ -24,7 +24,7 @@ import { Ambulancia, Hospital, Jeringa, Silla } from '../assets/icons';
 import { mutations, queries } from '../graphql';
 import ModalLogro from './ModalLogro';
 
-const player = 'david@example.com';
+const player = 'mariana@example.com';
 
 const Logros = ({ jugadas, partidas, correctas, navigation }) => {
   const { data: { logroz } = {} } = useQuery(queries.ShowLogroz, {
@@ -70,12 +70,16 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
       setLogro1(true);
       setLogroNuevo(true);
     }
-    if (jugadas === 30 && logro2 === false) {
+    if (jugadas === 130 && logro2 === false) {
       setLogro2(true);
       setLogroNuevo(true);
     }
-    if (correctas === 20 && logro3 === false) {
+    if (correctas === 60 && logro3 === false) {
       setLogro3(true);
+      setLogroNuevo(true);
+    }
+    if (jugadas === 150 && logro4 === false) {
+      setLogro4(true);
       setLogroNuevo(true);
     }
   }, [jugadas, partidas, correctas]);
@@ -105,9 +109,9 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
         }}
       >
         <Flex>
-          <HStack space={2}>
+          <HStack space={4}>
             <Box>
-              <Ambulancia width={150} height={150} />
+              <Ambulancia width={120} height={120} />
             </Box>
             <VStack alignSelf={'center'}>
               <Box>
@@ -119,7 +123,7 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
               </Box>
               <Box>
                 <Text style={{ fontSize: 15, color: 'black' }}>
-                  Completa 10 partidas
+                  Completa 2 partidas
                 </Text>
               </Box>
             </VStack>
@@ -138,9 +142,9 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
         </Flex>
         <Divider></Divider>
         <Flex>
-          <HStack space={2}>
+          <HStack space={4}>
             <Box>
-              <Jeringa width={150} height={150} />
+              <Jeringa width={120} height={120} />
             </Box>
             <VStack alignSelf={'center'}>
               <Box>
@@ -152,7 +156,7 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
               </Box>
               <Box>
                 <Text style={{ fontSize: 15, color: 'black' }}>
-                  Completa 50 Jugadas
+                  Completa 130 Jugadas
                 </Text>
               </Box>
             </VStack>
@@ -172,9 +176,9 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
         <Divider></Divider>
 
         <Flex>
-          <HStack space={2}>
+          <HStack space={4}>
             <Box>
-              <Silla width={150} height={150} />
+              <Silla width={120} height={120} />
             </Box>
             <VStack alignSelf={'center'}>
               <Box>
@@ -186,7 +190,7 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
               </Box>
               <Box>
                 <Text style={{ fontSize: 15, color: 'black' }}>
-                  Completa 100 correctas
+                  Completa 60 correctas
                 </Text>
               </Box>
             </VStack>
@@ -206,9 +210,9 @@ const Logros = ({ jugadas, partidas, correctas, navigation }) => {
         <Divider></Divider>
 
         <Flex>
-          <HStack space={2}>
+          <HStack space={4}>
             <Box>
-              <Hospital width={150} height={150} />
+              <Hospital width={120} height={120} />
             </Box>
             <VStack alignSelf={'center'}>
               <Box>
