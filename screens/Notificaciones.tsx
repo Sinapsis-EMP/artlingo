@@ -1,41 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useMutation, useQuery } from '@apollo/react-hooks';
-import {
-  Alert,
-  Animated,
-  Dimensions,
-  Image,
-  Modal,
-  Pressable,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Text, View } from 'react-native';
 
-import { mutations, queries } from '../graphql';
+import { COLORS } from './Quiz';
 
-export const COLORS = {
-  primary: '#252c4a',
-  secondary: '#1E90FF',
-  accent: '#3498db',
-
-  success: '#00C851',
-  error: '#ff4444',
-
-  black: '#171717',
-  white: '#FFFFFF',
-  background: '#252C4A',
-};
 const Notificaciones = () => {
   const [jugadas, setJugadas] = useState(140);
   const [correctas, setCorrectas] = useState(60);
   const [presicion, setPresicion] = useState(0);
   const [velocidad, setVelocidad] = useState(3);
-  const [partidas, setPartidas] = useState();
   const [puntuacion, setPuntuacion] = useState(0);
 
   useEffect(() => {

@@ -31,7 +31,7 @@ const EstadisticaCard = ({ correctas, jugadas }) => {
             
           
             <Text>Preguntas/jugadas</Text>
-            <Spacer></Spacer>
+            <Spacer />
             <Text>{scores?.jugadas}</Text>
            
             </Flex>
@@ -39,14 +39,14 @@ const EstadisticaCard = ({ correctas, jugadas }) => {
               {/* <Flex direction="row">
             
             <Text>Correctas</Text>
-            <Spacer></Spacer>
+            <Spacer />
             <Text>{scores?.correctas}</Text>
            
             </Flex>
             <Progress colorScheme="emerald" value={scores?.correctas} /> */}
               <Flex direction="row">
                 <Text>Presición</Text>
-                <Spacer></Spacer>
+                <Spacer />
                 <Text>{porcentaje}%</Text>
               </Flex>
               <Progress
@@ -57,7 +57,7 @@ const EstadisticaCard = ({ correctas, jugadas }) => {
               {/* <Flex direction="row">
             
             <Text>Promedio Velocidad</Text>
-            <Spacer></Spacer>
+            <Spacer />
             <Text>{tiempo} Segundos</Text>
            
             </Flex>

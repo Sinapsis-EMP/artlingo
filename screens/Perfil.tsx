@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { Avatar, Box, Text, VStack } from 'native-base';
 
 import { useQuery } from '@apollo/react-hooks';
-import { Avatar, Box, Text, VStack } from 'native-base';
 import { ImageBackground, ScrollView, StyleSheet } from 'react-native';
 
 import EstadisticaCard from '../components/EstadisticaCard';
@@ -115,20 +116,21 @@ const Perfil = ({ navigation }) => {
             jugadas={jugadas}
             velocidad={velocidad}
             partidas={partidas}
-          ></LevelCard>
-          <EstadisticaCard
-            correctas={correctas}
-            jugadas={jugadas}
-          ></EstadisticaCard>
+          />
+          <EstadisticaCard correctas={correctas} jugadas={jugadas} />
         </Box>
 
         <Box>
-          <Logros
-            correctas={correctas}
-            jugadas={jugadas}
-            partidas={partidas}
-            navigation={navigation}
-          ></Logros>
+          {correctas && jugadas && partidas && (
+            <Logros
+              playerStats={{
+                correctas,
+                jugadas,
+                partidas,
+              }}
+              navigation={navigation}
+            />
+          )}
         </Box>
       </ImageBackground>
     </ScrollView>

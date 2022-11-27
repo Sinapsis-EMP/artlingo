@@ -1,7 +1,8 @@
+import { NativeBaseProvider } from 'native-base';
+
 import { ApolloProvider } from '@apollo/react-hooks';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { NativeBaseProvider } from 'native-base';
 import { StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
@@ -23,11 +24,7 @@ const Tab = createBottomTabNavigator();
 function HomeScreen() {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: '#F1F1F1' }]}>
-      <StatusBar
-        hidden={false}
-        barStyle="light-content"
-        backgroundColor="black"
-      />
+      <StatusBar barStyle="light-content" backgroundColor="black" />
 
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -42,12 +39,10 @@ function HomeScreen() {
           },
           headerTitleStyle: { color: 'white', fontSize: 30 },
           headerTitleAlign: 'center',
-
           tabBarStyle: {
             borderRadius: 10,
             borderBottomRightRadius: 0,
             borderBottomLeftRadius: 0,
-
             backgroundColor: '#7493BA',
             height: 70,
           },
@@ -83,9 +78,7 @@ function HomeScreen() {
         <Tab.Screen name="Notificaciones" component={Notificaciones} />
         <Tab.Screen name="Ranking" component={Board} />
         <Tab.Screen
-          options={{
-            headerShown: false,
-          }}
+          options={{ headerShown: false }}
           name="Planes"
           component={Planes}
         />

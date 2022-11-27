@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { Ionicons } from '@expo/vector-icons';
-
-import { useMutation, useQuery } from '@apollo/react-hooks';
 import { Audio } from 'expo-av';
 import { Flex, HStack, Spacer } from 'native-base';
+
+import { useMutation, useQuery } from '@apollo/react-hooks';
+import { RouteProp, TabRouter } from '@react-navigation/native';
 import {
   Alert,
   Animated,
@@ -19,11 +20,13 @@ import {
 } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
-import Animacion from '../components/Animacion';
 import { mutations, queries } from '../graphql';
 import { ShowRanking } from '../graphql/queries';
 
 const { width, height } = Dimensions.get('window');
+
+const player = 'marco@example.com';
+
 export const COLORS = {
   primary: '#252c4a',
   secondary: '#1E90FF',
@@ -36,35 +39,36 @@ export const COLORS = {
   white: '#FFFFFF',
   background: '#252C4A',
 };
+
 export const SIZES = {
   base: 10,
-  width: width,
-  height: height,
+  width,
+  height,
 };
-const player = 'marco@example.com';
 
-const Quiz = ({ route, navigation }) => {
+type QuizProps = {
+  route: RouteProp;
+};
+
+const Quiz = ({ route, navigation }: QuizProps) => {
+  // route.
   const limit = route.params?.limit2;
 
   const [isPlaying, setIsPlaying] = useState(true);
-  const [key, setKey] = useState(null);
-  const [rem, setRem] = useState(null);
-  console.log('isplay1' + isPlaying);
+  const [key, setKey] = useState<number>(0);
+  const [rem, setRem] = useState<number | null>(null);
 
   const {
     data: { preguntas = [] } = {},
     loading: queryLoading,
     error,
   } = useQuery(queries.ShowQuestions, {
-    variables: {
-      limit,
-    },
+    variables: { limit },
   });
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       setIsPlaying(true);
     });
-
     return () => {
       unsubscribe;
     };
@@ -95,11 +99,9 @@ const Quiz = ({ route, navigation }) => {
               setRem(remainingTime);
             }, [remainingTime]),
             (
-              <>
-                <Text style={{ color, fontSize: 45, fontWeight: 'bold' }}>
-                  {remainingTime}
-                </Text>
-              </>
+              <Text style={{ color, fontSize: 45, fontWeight: 'bold' }}>
+                {remainingTime}
+              </Text>
             )
           )}
         </CountdownCircleTimer>
@@ -109,7 +111,7 @@ const Quiz = ({ route, navigation }) => {
 
   const restartQuiz = () => {
     setShowScoreModal(false);
-    setKey((prevKey: number) => prevKey + 1);
+    setKey((prevKey) => prevKey + 1);
     setRem(30);
     setIsPlaying(false);
     setCurrentQuestionIndex(0);
@@ -147,10 +149,6 @@ const Quiz = ({ route, navigation }) => {
   const [showScoreModal, setShowScoreModal] = useState(false);
 
   const [progress, setProgress] = useState(new Animated.Value(0));
-  console.log('myaray' + myArray2);
-
-  console.log('key' + key);
-  console.log('rem' + rem);
 
   function getAvg(myArray2: any[]) {
     const total = myArray2.reduce((acc, c) => acc + c, 0);
@@ -544,7 +542,7 @@ const Quiz = ({ route, navigation }) => {
                   Cerrar
                 </Text>
               </TouchableOpacity>
-              <Spacer></Spacer>
+              <Spacer />
               <View
                 style={{
                   alignSelf: 'center',
@@ -562,10 +560,10 @@ const Quiz = ({ route, navigation }) => {
                     );
                   }}
                 >
-                  <Animacion anima="info"></Animacion>
+                  {/* <Animacion anima="info"></Animacion> */}
                 </Pressable>
               </View>
-              <Spacer></Spacer>
+              <Spacer />
 
               <TouchableOpacity
                 onPress={handleNext}
@@ -963,7 +961,6 @@ const Quiz = ({ route, navigation }) => {
         </ImageBackground>
       </View>
     </ScrollView>
-    // </SafeAreaView>
   );
 };
 

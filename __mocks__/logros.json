@@ -1,0 +1,27 @@
+// {
+//     "ambulancia": {
+//       "description": "Completa tu primera partida",
+//       "predicates": [{
+//         "property": "partidas",
+//         "value": 1,
+//         "operator": ">="
+//     }]
+//     },
+//     "jeringa": {
+//       "description": "Responde 50 preguntas",
+//       "predicate": {
+//         "property": "preguntas",
+//         "value": 50,
+//         "operator": ">="
+
+//       } (stats: PlayerStats) => stats.jugadas >= 50,
+//     },
+//     "hospital": {
+//       "description": "Completa 10 partidas",
+//       "predicate": (stats: PlayerStats) => stats.partidas >= 10,
+//     },
+//     "silla": {
+//       "description": "Responde correctamente a 60 preguntas",
+//       "predicate": (stats: PlayerStats) => stats.correctas >= 60,
+//     }
+//   }

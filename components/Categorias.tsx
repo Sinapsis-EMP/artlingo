@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useFonts } from 'expo-font';
 import { Avatar, Box, Text, VStack } from 'native-base';
 

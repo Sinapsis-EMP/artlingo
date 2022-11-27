@@ -1,20 +1,8 @@
-import React from 'react';
-
 import { useQuery } from '@apollo/react-hooks';
-import Constants from 'expo-constants';
-import {
-  Box,
-  Button,
-  Container,
-  Flex,
-  HStack,
-  Text,
-  VStack,
-} from 'native-base';
-import { ImageBackground, ScrollView, StyleSheet, View } from 'react-native';
+import { Box, Button, Container, HStack, Text, VStack } from 'native-base';
+import { ScrollView, StyleSheet } from 'react-native';
 
-import { Ambulancia, Hospital, Jeringa, Plan, Silla } from '../assets/icons';
-import RankCard from '../components/RankCard';
+import { Plan } from '../assets/icons';
 import { queries } from '../graphql';
 
 const Planes = () => {

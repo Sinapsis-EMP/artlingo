@@ -62,12 +62,12 @@ export const ShowUser = gql`
 export const ShowLogroz = gql`
   query ShowLogroz($email: String!) {
     logroz(where: { email: { _eq: $email } }) {
+      id
       email
       logro1
       logro2
       logro3
       logro4
-      id
     }
   }
 `;

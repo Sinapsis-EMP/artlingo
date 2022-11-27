@@ -4,7 +4,7 @@
 module.exports = {
   singleQuote: true,
   semi: true,
-  importOrder: ['^react$', '^@expo/(.*)$', '^[^\\./]', '^[\\./]'],
+  importOrder: ['^react$', '^(@?expo|native-base)(.*)$', '^[^\\./]', '^[\\./]'],
   importOrderSeparation: true,
   importOrderSortSpecifiers: true,
 };

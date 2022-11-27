@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useQuery } from '@apollo/react-hooks';
 import {
   Alert,
   Box,
@@ -17,6 +15,8 @@ import {
   Text,
   VStack,
 } from 'native-base';
+
+import { useQuery } from '@apollo/react-hooks';
 import { ScrollView, StyleSheet } from 'react-native';
 
 import pill from '../assets/pill.png';
@@ -40,8 +40,8 @@ const Inicio = ({ navigation }) => {
   }, [users]);
   const [numPreguntas, setNumPreguntas] = useState<number>();
   const [showModal, setShowModal] = useState(false);
-  const [tema, setTema] = useState<string>(null);
-  const [show, setShow] = React.useState(false);
+  const [tema, setTema] = useState<string>();
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     // TODO: Get the questions from the server
