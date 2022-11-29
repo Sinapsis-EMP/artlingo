@@ -20,12 +20,13 @@ import {
 } from 'react-native';
 import { CountdownCircleTimer } from 'react-native-countdown-circle-timer';
 
+import Animacion from '../components/Animacion';
 import { mutations, queries } from '../graphql';
 import { ShowRanking } from '../graphql/queries';
 
 const { width, height } = Dimensions.get('window');
 
-const player = 'marco@example.com';
+const player = 'david@example.com';
 
 export const COLORS = {
   primary: '#252c4a',
@@ -46,11 +47,7 @@ export const SIZES = {
   height,
 };
 
-type QuizProps = {
-  route: RouteProp;
-};
-
-const Quiz = ({ route, navigation }: QuizProps) => {
+const Quiz = ({ route, navigation }) => {
   // route.
   const limit = route.params?.limit2;
 
@@ -560,7 +557,7 @@ const Quiz = ({ route, navigation }: QuizProps) => {
                     );
                   }}
                 >
-                  {/* <Animacion anima="info"></Animacion> */}
+                  <Animacion anima="info"></Animacion>
                 </Pressable>
               </View>
               <Spacer />

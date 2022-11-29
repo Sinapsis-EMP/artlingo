@@ -23,7 +23,7 @@ import pill from '../assets/pill.png';
 import Categorias from '../components/Categorias';
 import { queries } from '../graphql';
 
-const player = 'marco@example.com';
+const player = 'david@example.com';
 
 const Inicio = ({ navigation }) => {
   const { data: { users } = {} } = useQuery(queries.ShowUser, {

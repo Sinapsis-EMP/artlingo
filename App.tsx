@@ -3,7 +3,7 @@ import { NativeBaseProvider } from 'native-base';
 import { ApolloProvider } from '@apollo/react-hooks';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar, StyleSheet } from 'react-native';
+import { Button, StatusBar, StyleSheet } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 import Bell from './assets/icons/Bell';
@@ -27,7 +27,7 @@ function HomeScreen() {
       <StatusBar barStyle="light-content" backgroundColor="black" />
 
       <Tab.Navigator
-        screenOptions={({ route }) => ({
+        screenOptions={({ route, navigation }) => ({
           tabBarShowLabel: false,
           headerShown: true,
           headerStyle: {
@@ -37,6 +37,7 @@ function HomeScreen() {
             backgroundColor: '#6f91be',
             height: 60,
           },
+
           headerTitleStyle: { color: 'white', fontSize: 30 },
           headerTitleAlign: 'center',
           tabBarStyle: {
@@ -78,7 +79,17 @@ function HomeScreen() {
         <Tab.Screen name="Notificaciones" component={Notificaciones} />
         <Tab.Screen name="Ranking" component={Board} />
         <Tab.Screen
-          options={{ headerShown: false }}
+          options={({ route, navigation }) => ({
+            headerRight: () => (
+              <Button
+                onPress={() => navigation.navigate('Inicio')}
+                title="Info"
+                color="#00cc00"
+              />
+            ),
+            tabBarStyle: { display: 'none' },
+            headerShown: true,
+          })}
           name="Planes"
           component={Planes}
         />
